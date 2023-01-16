@@ -26,7 +26,7 @@ object DiDisplayUtil {
     }
 
 
-    fun getDisplayWidthInPx(context: Context): Int {
+    fun getScreenWidthInPx(context: Context): Int {
         val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         if (wm != null) {
             val display = wm.defaultDisplay
@@ -37,7 +37,7 @@ object DiDisplayUtil {
         return 0
     }
 
-    fun getDisplayHeightInPx(context: Context): Int {
+    fun getScreenHeightInPx(context: Context): Int {
         val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         if (wm != null) {
             val display = wm.defaultDisplay
