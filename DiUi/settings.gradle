@@ -12,5 +12,9 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 rootProject.name = "DiUi"
 include ':app'
+include ':DiUi'
+include ':DiLibrary'
+project(':DiLibrary').projectDir = "../DiLibrary/DiLibrary" as File
