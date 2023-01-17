@@ -1,4 +1,4 @@
-package com.doing.diui.tab.bottom
+package com.doing.diui.tab.top
 
 import android.content.Context
 import android.graphics.Color
@@ -6,26 +6,25 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
+import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
-import androidx.core.view.marginTop
 import com.doing.diui.R
 import com.doing.diui.tab.common.IDiTabLayout
 import com.doing.hilibrary.log.DiLog
 import com.doing.hilibrary.util.DiDisplayUtil
 
-class DiTabBottomLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null)
-    : FrameLayout(context, attrs), IDiTabLayout<DiTabBottom, DiTabBottomInfo> {
+class DiTabTopView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null)
+    : HorizontalScrollView(context, attrs), IDiTabLayout<DiTabTopItemView, DiTabTopItemInfo> {
 
     companion object {
         const val BOTTOM_TAG = "RootContainer"
     }
 
-    private var itemViews: MutableList<DiTabBottom> = mutableListOf()
+    private var itemViews: MutableList<DiTabTopItemView> = mutableListOf()
 
-    private val onTabSelectedListeners = mutableListOf<IDiTabLayout.OnTabSelectedListener<DiTabBottomInfo>>()
+    private val onTabSelectedListeners = mutableListOf<IDiTabLayout.OnTabSelectedListener<DiTabTopItemInfo>>()
 
-    override fun findTab(data: DiTabBottomInfo): DiTabBottom? {
+    override fun findTab(data: DiTabTopItemInfo): DiTabTopItemView? {
         itemViews.forEach { view ->
             if (view.tabInfo == data) {
                 return view
@@ -35,11 +34,11 @@ class DiTabBottomLayout @JvmOverloads constructor(context: Context, attrs: Attri
         return null
     }
 
-    override fun addOnTabSelectedListener(listener: IDiTabLayout.OnTabSelectedListener<DiTabBottomInfo>) {
+    override fun addOnTabSelectedListener(listener: IDiTabLayout.OnTabSelectedListener<DiTabTopItemInfo>) {
         onTabSelectedListeners.add(listener)
     }
 
-    override fun select(data: DiTabBottomInfo) {
+    override fun select(data: DiTabTopItemInfo) {
         val selectedIndex = itemViews.indexOfFirst { view ->
             view.tabInfo == data
         }
@@ -51,31 +50,22 @@ class DiTabBottomLayout @JvmOverloads constructor(context: Context, attrs: Attri
         }
     }
 
-    override fun inflateInfo(dataList: List<DiTabBottomInfo>) {
+    override fun inflateInfo(dataList: List<DiTabTopItemInfo>) {
         if (dataList.isEmpty()) {
             return
         }
 
         clearView()
 
-        val topLine = View(context)
-        topLine.setBackgroundColor(Color.parseColor("#CCCCCC"))
-        topLine.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, 3).apply {
-            this.gravity = Gravity.TOP
-            this.topMargin = 50
-        }
-
-        addView(topLine)
-
         val llContainer = LinearLayout(context)
         llContainer.setTag(R.id.DiTabBottomLayout_rl_root, BOTTOM_TAG)
 
-        val width: Int = DiDisplayUtil.getScreenWidthInPx(context) / dataList.size
         dataList.forEachIndexed { index, data  ->
-            val param = LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT)
-            val itemView = DiTabBottom(context)
-            param.gravity = Gravity.BOTTOM
-            itemView.setTabInfo(index, data )
+            val param = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT)
+            val itemView = DiTabTopItemView(context)
+            param.gravity = Gravity.CENTER
+            itemView.setTabInfo(index, data)
             llContainer.addView(itemView, param)
             itemView.setOnClickListener {
                 onSelected(index, data)
@@ -84,7 +74,7 @@ class DiTabBottomLayout @JvmOverloads constructor(context: Context, attrs: Attri
         }
 
         val param = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-        param.gravity = Gravity.BOTTOM
+        param.gravity = Gravity.CENTER_VERTICAL
         addView(llContainer, param)
     }
 
@@ -105,7 +95,7 @@ class DiTabBottomLayout @JvmOverloads constructor(context: Context, attrs: Attri
         itemViews.clear()
     }
 
-    private fun onSelected(selectedIndex: Int, data: DiTabBottomInfo) {
+    private fun onSelected(selectedIndex: Int, data: DiTabTopItemInfo) {
         itemViews.forEach { view ->
             view.onTabSelectedChange(selectedIndex, data)
         }

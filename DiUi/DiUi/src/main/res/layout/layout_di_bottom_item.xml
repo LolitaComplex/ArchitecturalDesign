@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/DiTabBottomLayout_iv_image"
+        android:id="@+id/DiTabBottomItemView_iv_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
@@ -15,7 +15,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/DiTabBottomLayout_tv_name"
+        app:layout_constraintBottom_toTopOf="@id/DiTabBottomItemView_tv_name"
         tools:background="@android:color/holo_blue_light"
         tools:layout_height="30dp"
         tools:layout_width="30dp"
@@ -23,7 +23,7 @@
 
 
     <TextView
-        android:id="@+id/DiTabBottomLayout_tv_icon"
+        android:id="@+id/DiTabBottomItemView_tv_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
@@ -33,11 +33,11 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/DiTabBottomLayout_tv_name"
+        app:layout_constraintBottom_toTopOf="@id/DiTabBottomItemView_tv_name"
         />
 
     <TextView
-        android:id="@+id/DiTabBottomLayout_tv_name"
+        android:id="@+id/DiTabBottomItemView_tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"

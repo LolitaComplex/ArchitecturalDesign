@@ -9,7 +9,7 @@ import com.doing.diproject.fragment.*
 import com.doing.diproject.tab.DiTabFragmentAdapter
 import com.doing.diproject.tab.DiTabFragmentView
 import com.doing.diui.tab.bottom.DiTabBottomInfo
-import com.doing.diui.tab.bottom.DiTabBottomLayout
+import com.doing.diui.tab.bottom.DiTabBottomView
 import com.doing.diui.tab.common.IDiTabLayout
 import com.doing.hilibrary.util.DiDisplayUtil
 
@@ -17,7 +17,7 @@ class MainLogic(private val provider: ActivityProvider) {
 
     private var mCurrentPosition = 0
     private lateinit var mTabFragmentView: DiTabFragmentView
-    private lateinit var mTabBottomLayout: DiTabBottomLayout
+    private lateinit var mTabBottomLayout: DiTabBottomView
     private lateinit var mDataList: MutableList<DiTabBottomInfo>
 
     companion object {
@@ -76,7 +76,7 @@ class MainLogic(private val provider: ActivityProvider) {
         val adapter = DiTabFragmentAdapter(provider.getSupportFragmentManager(), dataList)
         tabFragmentView.setAdapter(adapter)
 
-        val tabBottom = provider.findViewById<DiTabBottomLayout>(R.id.MainActivity_tab_bottom)
+        val tabBottom = provider.findViewById<DiTabBottomView>(R.id.MainActivity_tab_bottom)
         tabBottom.inflateInfo(dataList)
         tabBottom.findTab(dataList[2])?.resetTab(DiDisplayUtil.dp2px(66.0f))
         tabBottom.addOnTabSelectedListener(object : IDiTabLayout.OnTabSelectedListener<DiTabBottomInfo> {

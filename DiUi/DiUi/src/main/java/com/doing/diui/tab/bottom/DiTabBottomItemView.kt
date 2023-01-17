@@ -1,6 +1,5 @@
 package com.doing.diui.tab.bottom
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
@@ -13,7 +12,7 @@ import com.doing.diui.R
 import com.doing.diui.tab.common.IDiTab
 import com.doing.diui.tab.common.IDiTabLayout
 
-class DiTabBottom @JvmOverloads constructor(
+class DiTabBottomItemView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : RelativeLayout(context, attrs), IDiTab<DiTabBottomInfo>,
     IDiTabLayout.OnTabSelectedListener<DiTabBottomInfo> {
@@ -28,10 +27,10 @@ class DiTabBottom @JvmOverloads constructor(
     private var isTabSelected = false
 
     init {
-        LayoutInflater.from(getContext()).inflate(R.layout.di_bottom_layout, this)
-        ivTab = findViewById(R.id.DiTabBottomLayout_iv_image)
-        tvIcon = findViewById(R.id.DiTabBottomLayout_tv_icon)
-        tvName = findViewById(R.id.DiTabBottomLayout_tv_name)
+        LayoutInflater.from(getContext()).inflate(R.layout.layout_di_bottom_item, this)
+        ivTab = findViewById(R.id.DiTabBottomItemView_iv_image)
+        tvIcon = findViewById(R.id.DiTabBottomItemView_tv_icon)
+        tvName = findViewById(R.id.DiTabBottomItemView_tv_name)
     }
 
     override fun setTabInfo(index: Int, data: DiTabBottomInfo) {
@@ -43,13 +42,13 @@ class DiTabBottom @JvmOverloads constructor(
 
     private fun inflateView(data: DiTabBottomInfo, isSelected: Boolean) {
         when (val type = data.tabType) {
-            is DiTabBottomInfo.TabType.BITMAP -> {
+            is DiTabBottomInfo.TabType.Image -> {
                 ivTab.visibility = View.VISIBLE
                 tvIcon.visibility = View.GONE
                 val bitmap = if (isSelected) type.selectedBitmap else type.defaultBitmap
                 ivTab.setImageBitmap(bitmap)
             }
-            is DiTabBottomInfo.TabType.ICON -> {
+            is DiTabBottomInfo.TabType.TextIcon -> {
                 ivTab.visibility = View.GONE
                 tvIcon.visibility = View.VISIBLE
                 val typeface = Typeface.createFromAsset(context.assets, type.iconFont)
