@@ -6,11 +6,21 @@ import com.doing.diproject.common.DiBaseActivity
 import com.doing.diproject.logic.MainLogic
 
 class MainActivity : DiBaseActivity(), ActivityProvider {
+
+    private lateinit var mMainLogic: MainLogic
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val mainLogic = MainLogic(this)
-        mainLogic.init()
+        mainLogic.initLogic(savedInstanceState)
+        mMainLogic = mainLogic
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mMainLogic.onSaveInstanceState(outState)
+
     }
 }

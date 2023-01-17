@@ -2,6 +2,7 @@ package com.doing.diproject.logic
 
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.os.Bundle
 import com.doing.diproject.R
 import com.doing.diproject.common.ActivityProvider
 import com.doing.diproject.fragment.*
@@ -14,7 +15,21 @@ import com.doing.hilibrary.util.DiDisplayUtil
 
 class MainLogic(private val provider: ActivityProvider) {
 
-    fun init() {
+    private var mCurrentPosition = 0
+    private lateinit var mTabFragmentView: DiTabFragmentView
+    private lateinit var mTabBottomLayout: DiTabBottomLayout
+    private lateinit var mDataList: MutableList<DiTabBottomInfo>
+
+    companion object {
+        const val TAG_CURRENT_POSITION = "tag_current_position_main_activity"
+    }
+
+
+    fun initLogic(savedInstanceState: Bundle?) {
+        if (savedInstanceState != null) {
+            mCurrentPosition = savedInstanceState.getInt(TAG_CURRENT_POSITION)
+        }
+
         val clazz = HomeFragment::class.java
 
         val tabFragmentView = provider.findViewById<DiTabFragmentView>(R.id.MainActivity_tab_view)
@@ -67,8 +82,18 @@ class MainLogic(private val provider: ActivityProvider) {
         tabBottom.addOnTabSelectedListener(object : IDiTabLayout.OnTabSelectedListener<DiTabBottomInfo> {
             override fun onTabSelectedChange(index: Int, currentData: DiTabBottomInfo) {
                 tabFragmentView.setCurrentItem(index)
+                mCurrentPosition = index
             }
         })
-        tabBottom.select(dataList[0])
+        tabBottom.select(dataList[mCurrentPosition])
+
+        mTabFragmentView = tabFragmentView
+        mTabBottomLayout = tabBottom
+        mDataList = dataList
     }
+
+    fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt(TAG_CURRENT_POSITION, mCurrentPosition)
+    }
+
 }
