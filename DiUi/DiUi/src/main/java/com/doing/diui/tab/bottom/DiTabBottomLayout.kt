@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.core.view.marginTop
 import com.doing.diui.R
 import com.doing.diui.tab.common.IDiTabLayout
 import com.doing.hilibrary.log.DiLog
@@ -57,9 +58,17 @@ class DiTabBottomLayout @JvmOverloads constructor(context: Context, attrs: Attri
 
         clearView()
 
-//        val height = DiDisplayUtil.dp2px(defaultTabBarHeight.toFloat(), resources)
-        val container = LinearLayout(context)
-        container.setTag(R.id.DiTabBottomLayout_rl_root, BOTTOM_TAG)
+        val topLine = View(context)
+        topLine.setBackgroundColor(Color.parseColor("#CCCCCC"))
+        topLine.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, 3).apply {
+            this.gravity = Gravity.TOP
+            this.topMargin = 50
+        }
+
+        addView(topLine)
+
+        val llContainer = LinearLayout(context)
+        llContainer.setTag(R.id.DiTabBottomLayout_rl_root, BOTTOM_TAG)
 
         val width: Int = DiDisplayUtil.getScreenWidthInPx(context) / dataList.size
         dataList.forEachIndexed { index, data  ->
@@ -67,7 +76,7 @@ class DiTabBottomLayout @JvmOverloads constructor(context: Context, attrs: Attri
             val itemView = DiTabBottom(context)
             param.gravity = Gravity.BOTTOM
             itemView.setTabInfo(index, data )
-            container.addView(itemView, param)
+            llContainer.addView(itemView, param)
             itemView.setOnClickListener {
                 onSelected(index, data)
             }
@@ -76,7 +85,7 @@ class DiTabBottomLayout @JvmOverloads constructor(context: Context, attrs: Attri
 
         val param = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
         param.gravity = Gravity.BOTTOM
-        addView(container, param)
+        addView(llContainer, param)
     }
 
     private fun clearView() {
