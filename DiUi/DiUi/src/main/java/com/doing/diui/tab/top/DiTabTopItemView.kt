@@ -19,7 +19,8 @@ class DiTabTopItemView @JvmOverloads constructor(context: Context, attrs: Attrib
     private val tvText: TextView
     private val vIndicator: View
 
-    private var index = -1
+    var index = -1
+        private set
     lateinit var tabInfo: DiTabTopItemInfo
         private set
     private var isTabSelected: Boolean = false
