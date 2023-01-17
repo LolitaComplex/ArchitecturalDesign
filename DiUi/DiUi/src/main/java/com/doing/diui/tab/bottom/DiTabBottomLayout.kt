@@ -109,5 +109,9 @@ class DiTabBottomLayout @JvmOverloads constructor(context: Context, attrs: Attri
         itemViews.forEach { view ->
             view.onTabSelectedChange(selectedIndex, data)
         }
+
+        onTabSelectedListeners.forEach { listener ->
+            listener.onTabSelectedChange(selectedIndex, data)
+        }
     }
 }
