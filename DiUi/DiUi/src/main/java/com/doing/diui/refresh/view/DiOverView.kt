@@ -15,7 +15,7 @@ abstract class DiOverView @JvmOverloads constructor(context: Context, attrs: Att
         STATE_INIT,
 
         /**
-         * 头部展示出来
+         * 头部展示出来了
          */
         STATE_VISIBLE,
 
@@ -37,7 +37,6 @@ abstract class DiOverView @JvmOverloads constructor(context: Context, attrs: Att
 
     protected var mRefreshState = DiRefreshState.STATE_INIT
 
-    var pullRefreshHeight = DiDisplayUtil.dp2px(66.0f)
     var minDamp = 1.6f
     var maxDamp = 2.2f
 

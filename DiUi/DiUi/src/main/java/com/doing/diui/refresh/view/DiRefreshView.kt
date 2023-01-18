@@ -21,7 +21,6 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
     private var mRefreshListener: IDiRefresh.OnRefreshListener? = null
     private var mOverView: DiOverView? = null
     private var mIsDisableRefreshScroll = false
-    private var mState: DiRefreshState = DiRefreshState.STATE_INIT
     private var mLastY = 0.0f
 
     private val mGestureDetector by lazy { GestureDetector(context, RefreshGestureDetector()) }
@@ -29,14 +28,12 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
 
     override fun refreshFinished() {
         val overView = mOverView ?: return
-        val head = getChildAt(0)
 
         overView.onFinish()
-        overView.setState(DiRefreshState.STATE_INIT)
-        if (head.bottom > 0) {
-            recover(head.bottom)
+        if (overView.bottom > 0) {
+            recover(overView.bottom)
         }
-        mState = DiRefreshState.STATE_INIT
+        overView.setState(DiRefreshState.STATE_INIT)
     }
 
     override fun setDisableRefreshScroll(isScroll: Boolean) {
@@ -57,22 +54,25 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        val head = this.getChildAt(0)
+        val overView =  mOverView ?: return super.dispatchTouchEvent(ev)
+
+        val state = overView.getState()
         if (ev.action == MotionEvent.ACTION_UP || ev.action == MotionEvent.ACTION_CANCEL
             || ev.action == MotionEvent.ACTION_POINTER_INDEX_MASK) {
-            if (head.bottom > 0 && mState != DiRefreshState.STATE_REFRESH) {
-                recover(head.bottom)
+            if (overView.bottom > 0 && state != DiRefreshState.STATE_REFRESH) {
+                recover(overView.bottom)
                 return false
             }
         }
 
         val consumed = mGestureDetector.onTouchEvent(ev)
-        val state = mState
+        DiLog.vt("Doing", "dispatchTouchEvent: 1 \t: $consumed")
         if (consumed || (state != DiRefreshState.STATE_INIT && state != DiRefreshState.STATE_REFRESH)
-            && head.bottom != 0) {
+            && overView.bottom != 0) {
             ev.action = MotionEvent.ACTION_CANCEL
             return super.dispatchTouchEvent(ev)
         }
+        DiLog.vt("Doing", "dispatchTouchEvent: 2 \t: $consumed")
 
         return if (consumed) {
             true
@@ -85,9 +85,9 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
         val overView = mOverView ?: return
         val autoScroller = mAutoScroller
 
-        if (distance > overView.pullRefreshHeight) {
-            autoScroller.recover(distance - overView.pullRefreshHeight)
-            mState = DiRefreshState.STATE_OVER_RELEASE
+        if (distance > overView.height) {
+            autoScroller.recover(distance - overView.height)
+            overView.setState(DiRefreshState.STATE_OVER_RELEASE)
         } else {
             autoScroller.recover(distance)
         }
@@ -96,17 +96,19 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         val overView = mOverView ?: return super.onLayout(changed, left, top, right, bottom)
 
-        val head = getChildAt(0)
         val child = getChildAt(1)
 
-        if (head != null && child != null) {
-            val childTop = child.top
-            if (mState == DiRefreshState.STATE_REFRESH) {
-                head.layout(left, overView.pullRefreshHeight - head.measuredHeight,
-                    right, overView.pullRefreshHeight)
-                child.layout(left, overView.pullRefreshHeight, right, overView.pullRefreshHeight + child.measuredHeight)
+        if (child != null) {
+            DiLog.it("Doing", "Left: $left \t Top: $top \t Right:" +
+                    " $right \t Bottom: $bottom")
+
+            if (overView.getState() == DiRefreshState.STATE_REFRESH) {
+                overView.layout(left, top, right, top + overView.measuredHeight)
+                child.layout(left, top + overView.measuredHeight, right,
+                    top + overView.measuredHeight + child.measuredHeight)
             } else {
-                head.layout(left, childTop - head.measuredHeight, right, childTop)
+                val childTop = child.top
+                overView.layout(left, childTop - overView.measuredHeight, right, childTop)
                 child.layout(left, childTop, right, childTop + child.measuredHeight)
             }
 
@@ -161,8 +163,8 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
 
             val isDisableRefreshScroll = mIsDisableRefreshScroll
             val listener = mRefreshListener ?: return false
-            val state = mState
             val overView = mOverView ?: return false
+            val state = overView.getState()
             val lastY = mLastY
 
 
@@ -174,18 +176,19 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
                 return true
             }
 
-            val head = getChildAt(0)
             val child = DiRefreshUtil.findScrollChildView(getChildAt(1))
-            if (!DiRefreshUtil.childScrolled(child)) {
+            if (DiRefreshUtil.childScrolled(child)) {
                 return false
             }
 
-            DiLog.wt("Doing", "DistanceX: $distanceX \t DistanceY: $distanceY")
+            DiLog.wt("Doing", "DistanceX: $distanceX \t DistanceY: $distanceY" +
+                    " \t OverViewBottom: ${overView.bottom} \t OverViewHeight: ${overView.height}" +
+                    "")
 
-            if (state != DiRefreshState.STATE_REFRESH || head.bottom <= overView.pullRefreshHeight
-                && (head.bottom > 0 || distanceY <= 0.0f)) {
+            if (distanceY <= 0.0f && state != DiRefreshState.STATE_REFRESH ||
+                (overView.bottom < overView.height && overView.bottom > 0)) {
                 if (state != DiRefreshState.STATE_OVER_RELEASE) {
-                    val speed = if (child.top < overView.pullRefreshHeight) {
+                    val speed = if (child.top < overView.height) {
                         lastY / overView.maxDamp
                     } else {
                         lastY / overView.minDamp
@@ -201,30 +204,29 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     private fun moveDown(offsetY: Int, isNotAuto: Boolean): Boolean {
-        val head = getChildAt(0)
         val child = getChildAt(1)
         val childTop = child.top + offsetY
         val overView = mOverView ?: return false
+        val state = overView.getState()
 
         if (childTop <= 0) {
             val resetY = -child.top
-            head.offsetTopAndBottom(resetY)
+            overView.offsetTopAndBottom(resetY)
             child.offsetTopAndBottom(resetY)
 
-            if (mState != DiRefreshState.STATE_REFRESH) {
-                mState = DiRefreshState.STATE_INIT
+            if (state != DiRefreshState.STATE_REFRESH) {
+                overView.setState(DiRefreshState.STATE_INIT)
             }
-        } else if (mState == DiRefreshState.STATE_REFRESH && childTop > overView.pullRefreshHeight) {
+        } else if (state == DiRefreshState.STATE_REFRESH && childTop > overView.height) {
             return false
-        } else if (childTop <= overView.pullRefreshHeight) {
-            if (overView.getState() != DiRefreshState.STATE_VISIBLE && isNotAuto) {
+        } else if (childTop <= overView.height) {
+            if (state != DiRefreshState.STATE_VISIBLE && isNotAuto) {
                 overView.onVisible()
                 overView.setState(DiRefreshState.STATE_VISIBLE)
-                mState = DiRefreshState.STATE_VISIBLE
             }
-            head.offsetTopAndBottom(offsetY)
+            overView.offsetTopAndBottom(offsetY)
             child.offsetTopAndBottom(offsetY)
-            if (childTop == overView.pullRefreshHeight && mState == DiRefreshState.STATE_OVER_RELEASE) {
+            if (childTop == overView.height && state == DiRefreshState.STATE_OVER_RELEASE) {
                 refresh()
             }
         } else {
@@ -232,11 +234,11 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
                 overView.onOver()
                 overView.setState(DiRefreshState.STATE_OVER)
             }
-            head.offsetTopAndBottom(offsetY)
+            overView.offsetTopAndBottom(offsetY)
             child.offsetTopAndBottom(offsetY)
         }
 
-        overView.onScroll(head.bottom, overView.pullRefreshHeight)
+        overView.onScroll(overView.bottom, overView.height)
 
         return true
     }
@@ -245,7 +247,6 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
         val refreshListener = mRefreshListener ?: return
         val overView = mOverView ?: return
 
-        mState = DiRefreshState.STATE_REFRESH
         overView.onRefresh()
         overView.setState(DiRefreshState.STATE_REFRESH)
         refreshListener.onRefresh()
