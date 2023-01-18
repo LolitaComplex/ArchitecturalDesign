@@ -21,6 +21,5 @@ class MainActivity : DiBaseActivity(), ActivityProvider {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         mMainLogic.onSaveInstanceState(outState)
-
     }
 }
