@@ -64,13 +64,13 @@ object DiLog {
         val builder = StringBuilder()
         if (config.getThreadFormatter() != null) {
             builder.append(config.getThreadFormatter()!!.format(Thread.currentThread()))
-                .append("\n")
+//                .append("\n")
         }
 
-        if (config.getStackTraceFormatter().stackTraceDepth() > 0) {
-            builder.append(config.getStackTraceFormatter().format(Throwable().stackTrace))
-                .append("\n")
-        }
+//        if (config.getStackTraceFormatter().stackTraceDepth() > 0) {
+//            builder.append(config.getStackTraceFormatter().format(Throwable().stackTrace))
+//                .append("\n")
+//        }
 
         content.forEach {
             builder.append("$it ;")

@@ -12,6 +12,7 @@ import com.doing.diui.refresh.common.DiGestureDetector
 import com.doing.diui.refresh.common.DiRefreshUtil
 import com.doing.diui.refresh.common.IDiRefresh
 import com.doing.diui.refresh.view.DiOverView.DiRefreshState
+import com.doing.hilibrary.log.DiLog
 import kotlin.math.abs
 
 class DiRefreshView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null)
@@ -84,7 +85,7 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
         val overView = mOverView ?: return
         val autoScroller = mAutoScroller
 
-        if (distance >= overView.pullRefreshHeight) {
+        if (distance > overView.pullRefreshHeight) {
             autoScroller.recover(distance - overView.pullRefreshHeight)
             mState = DiRefreshState.STATE_OVER_RELEASE
         } else {
@@ -156,6 +157,8 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
     private inner class RefreshGestureDetector : DiGestureDetector() {
         override fun onScroll(e1: MotionEvent, e2: MotionEvent,
                               distanceX: Float, distanceY: Float): Boolean {
+            DiLog.dt("Doing", "DistanceX: $distanceX \t DistanceY: $distanceY")
+
             val isDisableRefreshScroll = mIsDisableRefreshScroll
             val listener = mRefreshListener ?: return false
             val state = mState
@@ -173,9 +176,11 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
 
             val head = getChildAt(0)
             val child = DiRefreshUtil.findScrollChildView(getChildAt(1))
-            if (DiRefreshUtil.childScrolled(child)) {
+            if (!DiRefreshUtil.childScrolled(child)) {
                 return false
             }
+
+            DiLog.wt("Doing", "DistanceX: $distanceX \t DistanceY: $distanceY")
 
             if (state != DiRefreshState.STATE_REFRESH || head.bottom <= overView.pullRefreshHeight
                 && (head.bottom > 0 || distanceY <= 0.0f)) {
@@ -212,7 +217,7 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
         } else if (mState == DiRefreshState.STATE_REFRESH && childTop > overView.pullRefreshHeight) {
             return false
         } else if (childTop <= overView.pullRefreshHeight) {
-            if (overView.getState() != DiRefreshState.STATE_VISIBLE) {
+            if (overView.getState() != DiRefreshState.STATE_VISIBLE && isNotAuto) {
                 overView.onVisible()
                 overView.setState(DiRefreshState.STATE_VISIBLE)
                 mState = DiRefreshState.STATE_VISIBLE
