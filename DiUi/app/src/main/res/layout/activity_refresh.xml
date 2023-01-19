@@ -6,7 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".RefreshActivity">
 
-    <com.doing.diui.refresh.view.DiRefreshView
+<!--    <com.doing.diui.refresh.view.DiRefreshView-->
+<!--        android:id="@+id/RefreshActivity_rv_refresh"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        >-->
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/RefreshActivity_recycler"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
+<!--    </com.doing.diui.refresh.view.DiRefreshView>-->
+
+    <com.doing.diui.refresh.demo.DiDemoRefreshView
         android:id="@+id/RefreshActivity_rv_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,6 +36,6 @@
             android:id="@+id/RefreshActivity_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.doing.diui.refresh.view.DiRefreshView>
+    </com.doing.diui.refresh.demo.DiDemoRefreshView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

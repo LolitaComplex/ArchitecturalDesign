@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.doing.diui.refresh.common.IDiRefresh
-import com.doing.diui.refresh.view.DiOverTextView
-import com.doing.diui.refresh.view.DiRefreshView
+import com.doing.diui.refresh.demo.DiDemoRefreshHeadTextView
+import com.doing.diui.refresh.demo.DiDemoRefreshView
+import com.doing.diui.refresh.demo.IDiDemoRefresh
 import com.doing.hilibrary.log.DiLog
 
 class RefreshActivity : AppCompatActivity() {
@@ -18,13 +18,13 @@ class RefreshActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_refresh)
 
-        val refreshView = findViewById<DiRefreshView>(R.id.RefreshActivity_rv_refresh)
-        refreshView.setRefreshOverView(DiOverTextView(this))
-        refreshView.setOnRefreshListener(object : IDiRefresh.OnRefreshListener {
-            override fun onRefresh() {
+        val refreshView = findViewById<DiDemoRefreshView>(R.id.RefreshActivity_rv_refresh)
+        refreshView.setHeadView(DiDemoRefreshHeadTextView(this))
+        refreshView.setOnRefreshListener(object : IDiDemoRefresh.OnDiDemoRefreshListener {
+            override fun onRefresh(diRefresh: IDiDemoRefresh) {
                 DiLog.d("刷新中……")
                 refreshView.postDelayed({
-                    refreshView.refreshFinished()
+                    diRefresh.finishRefresh()
                 }, 1000)
             }
 
