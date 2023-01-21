@@ -1,9 +1,11 @@
-package com.doing.diui
+package com.doing.diui.page
 
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.doing.diui.DemoFragment
+import com.doing.diui.R
 import com.doing.diui.tab.bottom.DiTabBottomInfo
 import com.doing.diui.tab.bottom.DiTabBottomView
 import com.doing.hilibrary.util.DiDisplayUtil

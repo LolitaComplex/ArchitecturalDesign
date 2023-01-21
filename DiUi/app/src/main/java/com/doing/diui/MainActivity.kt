@@ -4,7 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import com.google.android.material.behavior.SwipeDismissBehavior
+import com.doing.diui.page.BannerActivity
+import com.doing.diui.page.DiTabBottomActivity
+import com.doing.diui.page.DiTabTopActivity
+import com.doing.diui.page.RefreshActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +24,10 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.MainActivity_btn_refresh).setOnClickListener {
             startActivity(Intent(this, RefreshActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.MainActivity_btn_banner).setOnClickListener {
+            startActivity(Intent(this, BannerActivity::class.java))
         }
     }
 }

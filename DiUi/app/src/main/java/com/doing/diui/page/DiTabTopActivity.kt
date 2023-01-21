@@ -1,8 +1,10 @@
-package com.doing.diui
+package com.doing.diui.page
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.doing.diui.DemoFragment
+import com.doing.diui.R
 import com.doing.diui.tab.top.DiTabTopItemInfo
 import com.doing.diui.tab.top.DiTabTopView
 

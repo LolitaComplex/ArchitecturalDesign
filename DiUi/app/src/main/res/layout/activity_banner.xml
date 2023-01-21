@@ -4,17 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".page.DiTabTopActivity">
+    tools:context=".page.BannerActivity">
 
-    <com.doing.diui.tab.top.DiTabTopView
-        android:id="@+id/DiTabTopActivity_tab_top"
+    <com.doing.diui.banner.DiBanner
+        android:background="@android:color/holo_green_light"
+        android:id="@+id/BannerActivity_banner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="230dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_height="30dp"
-        tools:background="@android:color/holo_purple"
         />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

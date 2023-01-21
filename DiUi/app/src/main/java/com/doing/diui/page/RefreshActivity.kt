@@ -1,4 +1,4 @@
-package com.doing.diui
+package com.doing.diui.page
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.doing.diui.R
 import com.doing.diui.refresh.demo.DiDemoRefreshHeadTextView
 import com.doing.diui.refresh.demo.DiDemoRefreshView
 import com.doing.diui.refresh.demo.IDiDemoRefresh

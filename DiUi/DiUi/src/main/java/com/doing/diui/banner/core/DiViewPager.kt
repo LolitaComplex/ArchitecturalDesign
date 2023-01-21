@@ -1,4 +1,4 @@
-package com.doing.diui.banner
+package com.doing.diui.banner.core
 
 import android.app.Activity
 import android.content.Context
@@ -42,6 +42,8 @@ class DiViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
         if (!isAutoPlay) {
             stop()
+        } else {
+            start()
         }
     }
 
