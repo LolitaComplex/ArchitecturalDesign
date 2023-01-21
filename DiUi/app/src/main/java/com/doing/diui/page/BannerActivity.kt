@@ -33,6 +33,7 @@ class BannerActivity : AppCompatActivity() {
         val banner = findViewById<DiBanner<DiBannerModel>>(R.id.BannerActivity_banner)
         banner.setAutoPlay(true)
         banner.setLoop(true)
+        banner.setIntervalTime(5000)
         banner.setBindAdapter(object :  IDiBannerBindAdapter<DiBannerModel> {
 
             override fun onBind(holder: DiViewPagerItemHolder, model: DiBannerModel, position: Int) {

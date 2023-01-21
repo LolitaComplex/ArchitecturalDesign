@@ -47,6 +47,7 @@ class DiBannerDelegate<E : DiBannerModel>(private val banner: DiBanner<E>) : IDi
         pager.setIntervalTime(mIntervalTime)
         pager.setAutoPlay(mIsAutoPlay)
         pager.adapter = adapter
+        pager.setScrollDuration(2000)
 
         if (bindAdapter != null) {
             adapter.setBannerBindAdapter(bindAdapter)

@@ -7,6 +7,7 @@ import android.os.Looper
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.viewpager.widget.ViewPager
+import com.doing.hilibrary.log.DiLog
 import java.lang.reflect.Field
 
 class DiViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null)
@@ -49,6 +50,17 @@ class DiViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
     fun setIntervalTime(intervalTime: Long) {
         this.mIntervalTime = intervalTime
+    }
+
+    fun setScrollDuration(duration: Int) {
+        try {
+            val field = ViewPager::class.java
+                .getDeclaredField("mScroller")
+            field.isAccessible = true
+            field.set(this, DiBannerScroller(context, duration))
+        } catch (e: Exception) {
+            DiLog.et("DiViewPager", e, "Di Scroller Set Failed")
+        }
     }
 
     private fun next() {
@@ -94,6 +106,7 @@ class DiViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSe
         }
         start()
     }
+
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
