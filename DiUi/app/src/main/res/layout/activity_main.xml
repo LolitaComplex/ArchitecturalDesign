@@ -42,7 +42,7 @@
 
     <Button
         android:id="@+id/MainActivity_btn_view_pager2"
-        android:text="Banner"
+        android:text="ViewPager2"
         android:textSize="16sp"
         android:textAllCaps="false"
         android:layout_width="wrap_content"

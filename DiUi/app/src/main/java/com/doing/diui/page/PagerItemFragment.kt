@@ -1,5 +1,6 @@
 package com.doing.diui.page
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.doing.diui.R
+import com.doing.hilibrary.log.DiLog
 
 class PagerItemFragment : Fragment() {
 
@@ -30,10 +32,21 @@ class PagerItemFragment : Fragment() {
             container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<TextView>(R.id.PagerItemFragment_tv_content).let { tvContent ->
-            tvContent.text = "这是第 ${position} 页"
+            tvContent.text = "这是第 $position 页"
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        DiLog.dt("Doing", "PagerItemFragment$position onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        DiLog.dt("Doing", "PagerItemFragment$position onPause")
     }
 }
