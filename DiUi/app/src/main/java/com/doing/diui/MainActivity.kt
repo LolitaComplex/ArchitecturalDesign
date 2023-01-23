@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import com.doing.diui.page.*
+import com.doing.diui.page.navigation.NavigationActivity
 import com.doing.hilibrary.global.DiActivityManager
 
 class MainActivity : AppCompatActivity(), (Boolean) -> Unit {
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity(), (Boolean) -> Unit {
 
         findViewById<Button>(R.id.MainActivity_btn_view_pager2).setOnClickListener {
             startActivity(Intent(this, ViewPager2Activity::class.java))
+        }
+
+        findViewById<Button>(R.id.MainActivity_btn_navigation).setOnClickListener {
+            startActivity(Intent(this, NavigationActivity::class.java))
         }
 
         DiActivityManager.instance.registerOnBackgroundChangeListener(this)

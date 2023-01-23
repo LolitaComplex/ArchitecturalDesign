@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.doing.diui.R
 
 class ViewPager2Activity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pager2)
@@ -29,6 +30,5 @@ class ViewPager2Activity : AppCompatActivity() {
         override fun createFragment(position: Int): Fragment {
             return PagerItemFragment.newInstance(position)
         }
-
     }
 }
