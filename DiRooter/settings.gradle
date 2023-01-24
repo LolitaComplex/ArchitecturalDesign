@@ -18,3 +18,5 @@ include ':DiLibrary'
 project(':DiLibrary').projectDir = "../DiLibrary/DiLibrary" as File
 include ':DiRooter'
 include ':DiNavigator'
+include ':NavigationAnnotation'
+include ':NavigationCompiler'
