@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
+import com.doing.diui.R
 import com.doing.diui.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -28,9 +31,14 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
+        val btnNext: Button = binding.HomeFragmentBtnNext
         homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            btnNext.text = it
+        }
+
+        btnNext.setOnClickListener {
+            val navController = findNavController()
+            navController.navigate(R.id.navigation_activity_viewpager2)
         }
         return root
     }

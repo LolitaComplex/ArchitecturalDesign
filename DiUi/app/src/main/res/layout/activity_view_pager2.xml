@@ -13,4 +13,17 @@
         android:background="@android:color/holo_blue_bright"
         />
 
+    <Button
+        android:id="@+id/ViewPager2Activity_btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next Pager"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

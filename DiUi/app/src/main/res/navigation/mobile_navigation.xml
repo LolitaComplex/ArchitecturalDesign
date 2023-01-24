@@ -22,4 +22,11 @@
         android:name="com.doing.diui.page.navigation.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <activity
+        android:id="@+id/navigation_activity_viewpager2"
+        android:name="com.doing.diui.page.ViewPager2Activity"
+        android:label="activity_view_pager2"
+        tools:layout="@layout/activity_view_pager2" />
+
 </navigation>
