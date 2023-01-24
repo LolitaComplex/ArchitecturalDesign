@@ -14,3 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "DiRooter"
 include ':app'
+include ':DiLibrary'
+project(':DiLibrary').projectDir = "../DiLibrary/DiLibrary" as File
+include ':DiRooter'
+include ':DiNavigator'
