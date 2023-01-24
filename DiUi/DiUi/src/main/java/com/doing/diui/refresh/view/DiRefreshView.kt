@@ -66,13 +66,13 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
 
         val consumed = mGestureDetector.onTouchEvent(ev)
-        DiLog.vt("Doing", "dispatchTouchEvent: 1 \t: $consumed")
+        DiLog.v("Doing", "dispatchTouchEvent: 1 \t: $consumed")
         if (consumed || (state != DiRefreshState.STATE_INIT && state != DiRefreshState.STATE_REFRESH)
             && overView.bottom != 0) {
             ev.action = MotionEvent.ACTION_CANCEL
             return super.dispatchTouchEvent(ev)
         }
-        DiLog.vt("Doing", "dispatchTouchEvent: 2 \t: $consumed")
+        DiLog.v("Doing", "dispatchTouchEvent: 2 \t: $consumed")
 
         return if (consumed) {
             true
@@ -99,7 +99,7 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
         val child = getChildAt(1)
 
         if (child != null) {
-            DiLog.it("Doing", "Left: $left \t Top: $top \t Right:" +
+            DiLog.i("Doing", "Left: $left \t Top: $top \t Right:" +
                     " $right \t Bottom: $bottom")
 
             if (overView.getState() == DiRefreshState.STATE_REFRESH) {
@@ -159,7 +159,7 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
     private inner class RefreshGestureDetector : DiGestureDetector() {
         override fun onScroll(e1: MotionEvent, e2: MotionEvent,
                               distanceX: Float, distanceY: Float): Boolean {
-            DiLog.dt("Doing", "DistanceX: $distanceX \t DistanceY: $distanceY")
+            DiLog.d("Doing", "DistanceX: $distanceX \t DistanceY: $distanceY")
 
             val isDisableRefreshScroll = mIsDisableRefreshScroll
             val listener = mRefreshListener ?: return false
@@ -181,7 +181,7 @@ class DiRefreshView @JvmOverloads constructor(context: Context, attrs: Attribute
                 return false
             }
 
-            DiLog.wt("Doing", "DistanceX: $distanceX \t DistanceY: $distanceY" +
+            DiLog.w("Doing", "DistanceX: $distanceX \t DistanceY: $distanceY" +
                     " \t OverViewBottom: ${overView.bottom} \t OverViewHeight: ${overView.height}" +
                     "")
 

@@ -48,7 +48,7 @@ class DiTabTopView @JvmOverloads constructor(context: Context, attrs: AttributeS
         if (selectedIndex != -1) {
             onSelected(selectedIndex, data)
         } else {
-            DiLog.wt("DiDoing", "Data: $data 并不存在")
+            DiLog.w("DiDoing", "Data: $data 并不存在")
         }
     }
 

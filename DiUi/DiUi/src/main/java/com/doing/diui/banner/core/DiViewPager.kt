@@ -59,7 +59,7 @@ class DiViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSe
             field.isAccessible = true
             field.set(this, DiBannerScroller(context, duration))
         } catch (e: Exception) {
-            DiLog.et("DiViewPager", e, "Di Scroller Set Failed")
+            DiLog.e("DiViewPager", e, "Di Scroller Set Failed")
         }
     }
 

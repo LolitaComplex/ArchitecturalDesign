@@ -1,56 +1,30 @@
 package com.doing.hilibrary.log
 
-import android.util.Log
-import java.lang.Exception
-import kotlin.text.StringBuilder
-
 object DiLog {
 
-    fun d(vararg content: Any) {
-        log(DiLogType.D, defaultTag(), *content)
-    }
-
-    fun dt(tag: String, vararg content: Any) {
+    fun d(tag: String = defaultTag(), vararg content: Any) {
         log(DiLogType.D, tag, *content)
     }
 
-    fun v(vararg content: Any) {
-        log(DiLogType.V, defaultTag(), *content)
-    }
 
-    fun vt(tag: String, vararg content: Any) {
+    fun v(tag: String = defaultTag(), vararg content: Any) {
         log(DiLogType.V, tag, *content)
     }
 
-    fun i(vararg content: Any) {
-        log(DiLogType.I, defaultTag(), *content)
-    }
 
-    fun it(tag: String, vararg content: Any) {
+    fun i(tag: String = defaultTag(), vararg content: Any) {
         log(DiLogType.I, tag, *content)
     }
 
-    fun w(vararg content: Any) {
-        log(DiLogType.W, defaultTag(), *content)
-    }
-
-    fun wt(tag: String, vararg content: Any) {
+    fun w(tag: String = defaultTag(), vararg content: Any) {
         log(DiLogType.W, tag, *content)
     }
 
-    fun e(e: Throwable, vararg content: Any) {
-        log(DiLogType.E, defaultTag(), *content)
-    }
-
-    fun et(tag: String, e: Throwable, vararg content: Any) {
+    fun e(tag: String = defaultTag(), e: Throwable, vararg content: Any) {
         log(DiLogType.E, tag, *content)
     }
 
-    fun a(vararg content: Any) {
-        log(DiLogType.A, defaultTag(), *content)
-    }
-
-    fun at(tag: String, vararg content: Any) {
+    fun a(tag: String = defaultTag(), vararg content: Any) {
         log(DiLogType.A, tag, *content)
     }
 

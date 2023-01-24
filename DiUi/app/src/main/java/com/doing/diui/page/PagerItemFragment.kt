@@ -42,11 +42,11 @@ class PagerItemFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        DiLog.dt("Doing", "PagerItemFragment$position onResume")
+        DiLog.d("Doing", "PagerItemFragment$position onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        DiLog.dt("Doing", "PagerItemFragment$position onPause")
+        DiLog.d("Doing", "PagerItemFragment$position onPause")
     }
 }

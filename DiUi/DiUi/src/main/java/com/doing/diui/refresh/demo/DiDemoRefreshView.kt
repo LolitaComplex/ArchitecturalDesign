@@ -60,7 +60,7 @@ class DiDemoRefreshView @JvmOverloads constructor(context: Context, attrs: Attri
 
 
         val gesture = mGestureDetector.onTouchEvent(ev)
-        DiLog.it("Doing", "dispatchEvent: $gesture")
+        DiLog.i("Doing", "dispatchEvent: $gesture")
 
         if (gesture) {
             ev.action = MotionEvent.ACTION_CANCEL
@@ -122,7 +122,7 @@ class DiDemoRefreshView @JvmOverloads constructor(context: Context, attrs: Attri
             val state = head.getState()
             val lastY = mLastY
 
-            DiLog.vt("Doing", "DistanceX: $distanceX \t DistanceY: $distanceY")
+            DiLog.v("Doing", "DistanceX: $distanceX \t DistanceY: $distanceY")
 
             if (abs(distanceX) > abs(distanceY) || !isEnableRefresh) {
                 return false
@@ -132,7 +132,7 @@ class DiDemoRefreshView @JvmOverloads constructor(context: Context, attrs: Attri
                 return true
             }
 
-            DiLog.wt("Doing", "---DistanceX: $distanceX \t DistanceY: $distanceY")
+            DiLog.w("Doing", "---DistanceX: $distanceX \t DistanceY: $distanceY")
 
             if (distanceY <= 0  && state != DiRefreshState.STATE_OVER_RELEASE){
                 val distance = if (head.bottom > head.height) {
