@@ -8,9 +8,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.doing.dinavigator.databinding.FragmentDashboardBinding
-import com.doing.navigatorannotation.Destination
 
-@Destination(pageUrl = "dirooter://fragment/dashboard")
+//@Destination(pageUrl = "dirooter://fragment/dashboard")
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null

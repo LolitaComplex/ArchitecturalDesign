@@ -8,9 +8,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.doing.dinavigator.databinding.FragmentHomeBinding
-import com.doing.navigatorannotation.Destination
 
-@Destination(pageUrl = "dirooter://fragment/home")
+//@Destination(pageUrl = "dirooter://fragment/home")
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null

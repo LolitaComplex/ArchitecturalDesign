@@ -8,9 +8,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.doing.dinavigator.databinding.FragmentNotificationsBinding
-import com.doing.navigatorannotation.Destination
 
-@Destination(pageUrl = "dirooter://fragment/notification")
+//@Destination(pageUrl = "dirooter://fragment/notification")
 class NotificationsFragment : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null
