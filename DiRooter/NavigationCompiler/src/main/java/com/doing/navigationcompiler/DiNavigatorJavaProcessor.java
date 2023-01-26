@@ -1,0 +1,20 @@
+package com.doing.navigationcompiler;
+
+import com.google.auto.service.AutoService;
+
+import java.util.Set;
+
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.Processor;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.TypeElement;
+
+@AutoService(Processor.class)
+public class DiNavigatorJavaProcessor extends AbstractProcessor {
+
+    @Override
+    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+        System.out.println("Doing DiNavigatorJavaProcessor process: " + annotations.size());
+        return false;
+    }
+}
