@@ -47,6 +47,7 @@ object NavUtil {
                     val navigator = provider.getNavigator(ActivityNavigator::class.java)
                     val node = navigator.createDestination()
                     node.id = destination.id
+                    node.addDeepLink(destination.pageUrl)
                     node.setComponentName(ComponentName(activity.packageName, destination.className))
                     navGraph.addDestination(node)
                 }
@@ -54,6 +55,7 @@ object NavUtil {
                     val navigator = provider.getNavigator(FragmentNavigator::class.java)
                     val node = navigator.createDestination()
                     node.id = destination.id
+                    node.addDeepLink(destination.pageUrl)
                     node.className = destination.className
                     navGraph.addDestination(node)
                 }
@@ -61,6 +63,7 @@ object NavUtil {
                     val navigator = provider.getNavigator(DialogFragmentNavigator::class.java)
                     val node = navigator.createDestination()
                     node.id = destination.id
+                    node.addDeepLink(destination.pageUrl)
                     node.className = destination.className
                     navGraph.addDestination(node)
                 }

@@ -9,7 +9,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.doing.dinavigator.databinding.ActivityBottomNavigationBinding
 import com.doing.dinavigator.utils.NavUtil
+import com.doing.navigatorannotation.Destination
 
+@Destination(pageUrl = "dirooter://activity/bottom/navigation")
 class BottomNavigationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBottomNavigationBinding
@@ -27,7 +29,7 @@ class BottomNavigationActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         NavUtil.buildNavGraph(this, hostFragment!!.childFragmentManager,
-            navController, R.id.nav_host_fragment_activity_bottom_navigation)
+            navController, R.id.nav_host_fragment)
 
         NavUtil.buildBottomBar(navView)
         navView.setOnNavigationItemSelectedListener { item ->

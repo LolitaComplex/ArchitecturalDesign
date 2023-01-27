@@ -2,11 +2,13 @@ package com.doing.navigationcompiler
 
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.JSONObject
+import com.alibaba.fastjson.TypeReference
 import com.doing.navigatorannotation.Destination
 import com.google.auto.service.AutoService
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
+import java.lang.management.ManagementFactory
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.Element
@@ -27,14 +29,21 @@ class DiNavigatorProcessor : AbstractProcessor(){
         this.messager = processingEnv.messager
         this.filer = processingEnv.filer
         val sourceVersion = processingEnv.sourceVersion
-        println("${Constant.TAG} >>> kotlin$count init SourceVersion $sourceVersion")
+        println("${Constant.TAG} >>> Runtime: ${ManagementFactory.getRuntimeMXBean().name}")
+        println("${Constant.TAG} >>> This: ${this.hashCode()}")
+        println("${Constant.TAG} >>> DiNavigatorAPTManager singleTon HashCode:" +
+                " ${DiNavigatorAPTJavaManager.getInstance()}")
+
+//        println()
+//        Throwable().printStackTrace()
+//        println()
     }
 
     override fun process(annotations: MutableSet<out TypeElement>?,
         roundEnv: RoundEnvironment?): Boolean {
 
         val elementsSet = roundEnv?.getElementsAnnotatedWith(Destination::class.java)
-        println("${Constant.TAG} >>> kotlin$count HashCode:${this.hashCode()} process $elementsSet")
+//        println("${Constant.TAG} >>> kotlin$count HashCode:${this.hashCode()} process $elementsSet")
 
         if (elementsSet != null && elementsSet.size < 1) {
             return false
@@ -46,41 +55,27 @@ class DiNavigatorProcessor : AbstractProcessor(){
                 "", Constant.OUTPUT_FILE_NAME)
             val resourcePath = resource.toUri().path
             val name = "/build/"
-            println("${Constant.TAG} >>> kotlin$count Resource Path: $resourcePath")
-            println("${Constant.TAG} >>> kotlin$count File Separator: ${File.separator}build${File.separator}")
+//            println("${Constant.TAG} >>> kotlin$count Resource Path: $resourcePath")
+//            println("${Constant.TAG} >>> kotlin$count File Separator: ${File.separator}build${File.separator}")
 
             val index = resourcePath.indexOf(name)
 
-            println("${Constant.TAG} >>> kotlin$count Build Index: $index")
+//            println("${Constant.TAG} >>> kotlin$count Build Index: $index")
 
             val modulePath = resourcePath.substring(0, resourcePath.indexOf(name))
-            val moduleName = modulePath.substring(modulePath.lastIndexOf("/"), modulePath.length)
-            val assetPath = "${modulePath}/src/main/assets"
+            val moduleName = modulePath.substring(modulePath.lastIndexOf("/") + 1, modulePath.length)
+            val projectPath = modulePath.substring(0, modulePath.lastIndexOf("/"))
 
-            println("${Constant.TAG} >>> kotlin$count Module Path: $modulePath")
-            println("${Constant.TAG} >>> kotlin$count Assets Path: $assetPath")
+//            println("${Constant.TAG} >>> kotlin$count Module Path: $modulePath")
+//            println("${Constant.TAG} >>> kotlin$count Module Name: $moduleName")
 
-            val file = File(assetPath)
-            if (!file.exists()) {
-                file.mkdirs()
-            }
+            val assetPath = "${projectPath}/app/src/main/assets"
+//            println("${Constant.TAG} >>> kotlin$count Assets Path: $assetPath")
 
-            val json = JSON.toJSONString(map)
-            val outputFile = File(assetPath, Constant.OUTPUT_FILE_NAME)
-            if (outputFile.exists()) {
-                outputFile.delete()
-            }
+            createJsonFile(assetPath, map)
 
-            println("${Constant.TAG} >>> kotlin$count Output Path: ${outputFile.absolutePath}")
-
-            outputFile.createNewFile()
-            OutputStreamWriter(FileOutputStream(outputFile, true)).use { writer ->
-                writer.write(json)
-                writer.flush()
-            }
         } catch (e: Exception) {
             e.printStackTrace()
-            println("${Constant.TAG} >>> kotlin$count Resource Error ")
         }
 
         println()
@@ -88,9 +83,45 @@ class DiNavigatorProcessor : AbstractProcessor(){
         return false
     }
 
+    private fun createJsonFile(
+        assetPath: String,
+        map: MutableMap<String, DestinationEntity>
+    ) {
+        val file = File(assetPath)
+        if (!file.exists()) {
+            file.mkdirs()
+        }
+
+        val outputFile = File(assetPath, Constant.OUTPUT_FILE_NAME)
+        println("${Constant.TAG} >>> kotlin$count OutputFile Exists: ${outputFile.exists()}")
+        if (outputFile.exists()) {
+            outputFile.bufferedReader().use { reader ->
+                val destinations = JSON.parseObject(reader.readText(),
+                    object : TypeReference<HashMap<String, DestinationEntity>>() {})
+                println("${Constant.TAG} >>> kotlin$count Content: $destinations")
+                println("${Constant.TAG} >>> kotlin$count Map Size: ${map.size}")
+                println("${Constant.TAG} >>> kotlin$count Destinations Size: ${destinations.size}")
+
+                map.putAll(destinations)
+                println("${Constant.TAG} >>> kotlin$count Map Size: ${map.size}")
+                println()
+            }
+            outputFile.delete()
+        }
+
+        val json = JSON.toJSONString(map)
+//        println("${Constant.TAG} >>> kotlin$count Output Path: ${outputFile.absolutePath}")
+
+        outputFile.createNewFile()
+        OutputStreamWriter(FileOutputStream(outputFile)).use { writer ->
+            writer.write(json)
+            writer.flush()
+        }
+    }
+
     private fun fillElementMap(elementsSet: MutableSet<out Element>?):
-            Map<String, JSONObject> {
-        val map = mutableMapOf<String, JSONObject>()
+            MutableMap<String, DestinationEntity> {
+        val map = mutableMapOf<String, DestinationEntity>()
         if (elementsSet != null && elementsSet.isNotEmpty()) {
             elementsSet.forEach { element ->
                 val typeElement = element as TypeElement
@@ -101,7 +132,7 @@ class DiNavigatorProcessor : AbstractProcessor(){
                 val isStarter = destination.isStarter
 
                 val pageType = getDestinationType(typeElement) ?: return@forEach
-                println("${Constant.TAG} >>> kotlin$count ClassName: $className PageUrl: $pageUrl")
+//                println("${Constant.TAG} >>> kotlin$count ClassName: $className PageUrl: $pageUrl")
 
                 if (map.contains(pageUrl)) {
                     messager.printMessage(
@@ -109,12 +140,12 @@ class DiNavigatorProcessor : AbstractProcessor(){
                         "Different page don't use same pageUrl: $pageUrl"
                     )
                 } else {
-                    map[pageUrl] = JSONObject().apply {
-                        put("className", className)
-                        put("pageUrl", pageUrl)
-                        put("isStarter", isStarter)
-                        put("id", className.hashCode())
-                        put("pageType", pageType.type)
+                    map[pageUrl] = DestinationEntity().apply {
+                        this.id = className.hashCode()
+                        this.className = className
+                        this.pageUrl = pageUrl
+                        this.isStarter = isStarter
+                        this.pageType = pageType.type
                     }
                 }
             }
