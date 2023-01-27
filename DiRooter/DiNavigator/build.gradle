@@ -48,4 +48,5 @@ dependencies {
 
     api project(':NavigationAnnotation')
     kapt project(':NavigationCompiler')
+    implementation 'com.alibaba:fastjson:1.2.68'
 }

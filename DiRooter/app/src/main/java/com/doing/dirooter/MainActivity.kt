@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.doing.dinavigator.NavMainActivity
-import com.doing.navigatorannotation.DestinationJava
+import com.doing.navigatorannotation.Destination
 
-@DestinationJava(pageUrl = "dirooter://activity/main")
+//@Destination(pageUrl = "dirooter://activity/main")
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

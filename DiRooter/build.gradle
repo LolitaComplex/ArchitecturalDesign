@@ -6,6 +6,10 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.7.10' apply false
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

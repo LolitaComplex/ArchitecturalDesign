@@ -20,17 +20,19 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.TypeMirror;
 
-@AutoService(Processor.class)
+//@AutoService(Processor.class)
 public class DiNavigatorJavaProcessor extends AbstractProcessor {
 
     private TypeElement typeElement;
+    private int count = 1;
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        System.out.println(Constant.TAG + " >>>> java process: " + annotations.size());
+        System.out.println(Constant.TAG + " >>>> java" + count + " process: " + annotations.size());
 
         Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(DestinationJava.class);
         if (elements.size() < 1) {
+            count++;
             return false;
         }
 
@@ -47,28 +49,29 @@ public class DiNavigatorJavaProcessor extends AbstractProcessor {
             String pageUrl = annotation.pageUrl();
 
 
-            System.out.println(Constant.TAG + " >>> java SimpleName: " + simpleName);
-            System.out.println(Constant.TAG + " >>> java QualifiedName: " + qualifiedName);
-            System.out.println(Constant.TAG + " >>> java NestingKind: " + nestingKind.name());
-            System.out.println(Constant.TAG + " >>> java Interfaces: " + Arrays.toString(interfaces.toArray()));
-            System.out.println(Constant.TAG + " >>> java SuperClass: " + superclass.toString());
-            System.out.println(Constant.TAG + " >>> java TypeParameters: " + Arrays.toString(typeParameters.toArray()));
+            System.out.println(Constant.TAG + " >>> java" + count + " SimpleName: " + simpleName);
+            System.out.println(Constant.TAG + " >>> java" + count + " QualifiedName: " + qualifiedName);
+            System.out.println(Constant.TAG + " >>> java" + count + " NestingKind: " + nestingKind.name());
+            System.out.println(Constant.TAG + " >>> java" + count + " Interfaces: " + Arrays.toString(interfaces.toArray()));
+            System.out.println(Constant.TAG + " >>> java" + count + " SuperClass: " + superclass.toString());
+            System.out.println(Constant.TAG + " >>> java" + count + " TypeParameters: " + Arrays.toString(typeParameters.toArray()));
             System.out.println();
         }
 
+        count++;
         return false;
     }
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
-        System.out.println(Constant.TAG + ">>>> java getSupportedAnnotationTypes : "
+        System.out.println(Constant.TAG + ">>>> java" + count + " getSupportedAnnotationTypes : "
                 + Destination.class.getCanonicalName());
         return Collections.singleton(DestinationJava.class.getCanonicalName());
     }
 
     @Override
     public SourceVersion getSupportedSourceVersion() {
-        System.out.println(Constant.TAG + " >>>> java getSupportedSourceVersion : "
+        System.out.println(Constant.TAG + " >>>> java" + count + " getSupportedSourceVersion : "
                 + SourceVersion.latestSupported());
         return SourceVersion.latestSupported();
     }
