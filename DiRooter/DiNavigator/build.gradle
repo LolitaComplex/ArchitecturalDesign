@@ -17,8 +17,7 @@ android {
             annotationProcessorOptions {
                 arguments = [
                     MODULE_NAME: project.getName(),
-                    IS_APP: false.toString(),
-                    IS_POET: false.toString()
+                    IS_APP: false.toString()
                 ]
             }
         }

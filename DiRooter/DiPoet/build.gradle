@@ -19,7 +19,6 @@ android {
                 arguments = [
                     MODULE_NAME: project.getName(),
                     IS_APP: false.toString(),
-                    IS_POET: true.toString()
                 ]
             }
         }

@@ -11,5 +11,8 @@ class JavaPoetActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_java_poet)
+
+        // 由于APT生成类代码是在编译到 app 工程时才生成的代码， 所以这里直接引用会报错
+        // HelloJavaPoet.main(arrayOf())
     }
 }

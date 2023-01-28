@@ -21,7 +21,7 @@ android {
                 arguments = [
                     MODULE_NAME: project.getName(),
                     IS_APP: true.toString(),
-                    IS_POET: false.toString()
+                    POET_NAME: rootProject.findProject('DiPoet').name
                 ]
             }
         }
