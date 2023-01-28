@@ -1,28 +1,27 @@
-package com.doing.dirooter
+package com.doing.poet
 
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.navigation.findNavController
-import com.doing.dinavigator.NavigatorConstant
 import com.doing.navigationbase.utils.NavUtil
 import com.doing.navigatorannotation.Destination
-import com.doing.poet.PoetConstant
 
-@Destination(pageUrl = MainConstant.ACTIVITY_MAIN)
-class MainActivity : AppCompatActivity() {
+@Destination(pageUrl = PoetConstant.ACTIVITY_POET)
+class PoetActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_poet)
 
         val navController = findNavController(R.id.nav_host_fragment)
-        findViewById<Button>(R.id.MainActivity_btn_navigation).setOnClickListener {
-            navController.navigate(Uri.parse(NavigatorConstant.ACTIVITY_NAVIGATION_MAIN))
+
+        findViewById<Button>(R.id.PoetActivity_btn_java).setOnClickListener {
+            navController.navigate(Uri.parse(PoetConstant.ACTIVITY_JAVA_POET))
         }
 
-        findViewById<Button>(R.id.MainActivity_btn_poet).setOnClickListener {
-            navController.navigate(Uri.parse(PoetConstant.ACTIVITY_POET))
+        findViewById<Button>(R.id.PoetActivity_btn_kotlin).setOnClickListener {
+            navController.navigate(Uri.parse(PoetConstant.ACTIVITY_KOTLIN_POET))
         }
 
         val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment);

@@ -1,16 +1,14 @@
 package com.doing.dinavigator
 
-import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import androidx.navigation.Navigator
 import androidx.navigation.findNavController
-import com.doing.dinavigator.utils.NavUtil
+import com.doing.navigationbase.utils.NavUtil
 import com.doing.navigatorannotation.Destination
 
-@Destination(pageUrl = "dirooter://activity/navmain")
+@Destination(pageUrl = NavigatorConstant.ACTIVITY_NAVIGATION_MAIN)
 class NavMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +16,7 @@ class NavMainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
         findViewById<Button>(R.id.NavMainActivity_btn_bottom_nav).setOnClickListener {
-            navController.navigate(Uri.parse("dirooter://activity/bottom/navigation"))
+            navController.navigate(Uri.parse(NavigatorConstant.ACTIVITY_NAVIGATION_BOTTOM))
         }
 
         val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment);

@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.doing.dinavigator.NavigatorConstant
 import com.doing.dinavigator.databinding.FragmentHomeBinding
 import com.doing.navigatorannotation.Destination
 
-@Destination(pageUrl = "dirooter://fragment/home", isStarter = true)
+@Destination(pageUrl = NavigatorConstant.FRAGMENT_HOME, isStarter = true)
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null

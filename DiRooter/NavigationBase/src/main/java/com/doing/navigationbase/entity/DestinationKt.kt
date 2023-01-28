@@ -1,4 +1,4 @@
-package com.doing.dinavigator.entity
+package com.doing.navigationbase.entity
 
 class DestinationKt(
     var pageUrl: String,

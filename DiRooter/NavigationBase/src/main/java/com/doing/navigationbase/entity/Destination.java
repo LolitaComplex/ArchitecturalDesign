@@ -1,4 +1,4 @@
-package com.doing.dinavigator.entity;
+package com.doing.navigationbase.entity;
 
 public class Destination {
     public String pageUrl;  //页面url

@@ -1,4 +1,4 @@
-package com.doing.dinavigator.utils
+package com.doing.navigationbase.utils
 
 import android.content.ComponentName
 import android.content.Context
@@ -13,11 +13,9 @@ import androidx.navigation.fragment.DialogFragmentNavigator
 import androidx.navigation.fragment.FragmentNavigator
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.TypeReference
-import com.doing.dinavigator.R
-import com.doing.dinavigator.entity.BottomBar
-import com.doing.dinavigator.entity.BottomBarKt
-import com.doing.dinavigator.entity.Destination
-import com.doing.dinavigator.entity.DestinationKt
+import com.doing.navigationbase.R
+import com.doing.navigationbase.entity.BottomBar
+import com.doing.navigationbase.entity.Destination
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 object NavUtil {

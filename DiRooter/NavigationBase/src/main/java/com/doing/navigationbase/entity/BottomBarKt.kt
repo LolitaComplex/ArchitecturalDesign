@@ -1,4 +1,4 @@
-package com.doing.dinavigator.entity
+package com.doing.navigationbase.entity
 
 class BottomBarKt(var tabs: List<Tab>) {
     constructor() : this(mutableListOf())

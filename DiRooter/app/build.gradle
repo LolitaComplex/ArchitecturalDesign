@@ -53,5 +53,8 @@ dependencies {
 
     implementation project(':DiLibrary')
     implementation project(':DiNavigator')
+    implementation project(':DiPoet')
+    implementation project(':NavigationAnnotation')
+    implementation project(':NavigationBase')
     kapt project(":NavigationCompiler")
 }

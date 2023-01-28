@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.doing.dinavigator.NavigatorConstant
 import com.doing.dinavigator.databinding.FragmentDashboardBinding
 import com.doing.navigatorannotation.Destination
 
-@Destination(pageUrl = "dirooter://fragment/dashboard")
+@Destination(pageUrl = NavigatorConstant.FRAGMENT_DASHBOARD)
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null

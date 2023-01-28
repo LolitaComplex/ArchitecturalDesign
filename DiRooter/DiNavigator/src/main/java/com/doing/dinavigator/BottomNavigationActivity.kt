@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.doing.dinavigator.databinding.ActivityBottomNavigationBinding
-import com.doing.dinavigator.utils.NavUtil
+import com.doing.navigationbase.utils.NavUtil
 import com.doing.navigatorannotation.Destination
 
-@Destination(pageUrl = "dirooter://activity/bottom/navigation")
+@Destination(pageUrl = NavigatorConstant.ACTIVITY_NAVIGATION_BOTTOM)
 class BottomNavigationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBottomNavigationBinding
