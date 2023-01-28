@@ -14,5 +14,7 @@ object Constant {
     val TypeFragment = PageType(PAGE_TYPE_FRAGMENT)
     val TypeDialog = PageType(PAGE_TYPE_DIALOG)
 
-    val OUTPUT_FILE_NAME = "destination.json"
+    const val OUTPUT_FILE_NAME = "destination.json"
+
+    const val OPTION_MODULE_NAME = "MODULE_NAME"
 }

@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject
 class DiNavigatorAPTManager private constructor() {
 
     companion object {
-        val instance = DiNavigatorAPTManager()
+        val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { DiNavigatorAPTManager() }
     }
 
     val destinations : MutableMap<String, JSONObject> = mutableMapOf()

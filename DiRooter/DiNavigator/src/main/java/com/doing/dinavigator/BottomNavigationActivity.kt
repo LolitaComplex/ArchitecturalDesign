@@ -3,10 +3,8 @@ package com.doing.dinavigator
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.doing.dinavigator.databinding.ActivityBottomNavigationBinding
 import com.doing.dinavigator.utils.NavUtil
 import com.doing.navigatorannotation.Destination
@@ -15,6 +13,7 @@ import com.doing.navigatorannotation.Destination
 class BottomNavigationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBottomNavigationBinding
+    private lateinit var mNavController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +31,12 @@ class BottomNavigationActivity : AppCompatActivity() {
             navController, R.id.nav_host_fragment)
 
         NavUtil.buildBottomBar(navView)
-        navView.setOnNavigationItemSelectedListener { item ->
+        navView.setOnItemSelectedListener { item ->
+            mNavController.popBackStack()
             navController.navigate(item.itemId)
             true
         }
+        mNavController = navController
 
 //        val appBarConfiguration = AppBarConfiguration(
 //            setOf(
@@ -46,5 +47,9 @@ class BottomNavigationActivity : AppCompatActivity() {
 //        navView.setupWithNavController(navController)
 
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

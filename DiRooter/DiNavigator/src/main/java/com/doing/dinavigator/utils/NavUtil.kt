@@ -86,9 +86,9 @@ object NavUtil {
             object : TypeReference<HashMap<String, Destination>>() {})
 
         bottomBarData.tabs.forEach { tab ->
-//            if (!tab.enable) {
-//                return@forEach
-//            }
+            if (!tab.enable) {
+                return@forEach
+            }
 
             val destination = destinations[tab.pageUrl]
             if (destination != null) {

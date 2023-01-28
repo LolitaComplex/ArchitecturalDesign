@@ -1,7 +1,6 @@
 package com.doing.navigationcompiler
 
 import com.alibaba.fastjson.JSON
-import com.alibaba.fastjson.JSONObject
 import com.alibaba.fastjson.TypeReference
 import com.doing.navigatorannotation.Destination
 import com.google.auto.service.AutoService
@@ -29,10 +28,13 @@ class DiNavigatorProcessor : AbstractProcessor(){
         this.messager = processingEnv.messager
         this.filer = processingEnv.filer
         val sourceVersion = processingEnv.sourceVersion
+        val options = processingEnv.options
+
         println("${Constant.TAG} >>> Runtime: ${ManagementFactory.getRuntimeMXBean().name}")
         println("${Constant.TAG} >>> This: ${this.hashCode()}")
         println("${Constant.TAG} >>> DiNavigatorAPTManager singleTon HashCode:" +
                 " ${DiNavigatorAPTJavaManager.getInstance()}")
+        println("${Constant.TAG} >>> Options : $options")
 
 //        println()
 //        Throwable().printStackTrace()
@@ -181,6 +183,10 @@ class DiNavigatorProcessor : AbstractProcessor(){
 
     override fun getSupportedSourceVersion(): SourceVersion {
         return SourceVersion.latestSupported()
+    }
+
+    override fun getSupportedOptions(): MutableSet<String> {
+        return mutableSetOf(Constant.OPTION_MODULE_NAME)
     }
 
 }
