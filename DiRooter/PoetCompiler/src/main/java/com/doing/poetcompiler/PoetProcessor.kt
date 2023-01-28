@@ -2,15 +2,11 @@ package com.doing.poetcompiler
 
 import com.doing.navigatorannotation.Destination
 import com.google.auto.service.AutoService
-import com.squareup.javapoet.JavaFile
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.TypeName
-import com.squareup.javapoet.TypeSpec
+import com.squareup.kotlinpoet.*
 import java.io.File
 import java.io.FileOutputStream
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
-import javax.lang.model.element.Modifier
 import javax.lang.model.element.TypeElement
 import javax.lang.model.util.Elements
 import javax.lang.model.util.Types
@@ -64,19 +60,18 @@ class PoetProcessor : AbstractProcessor() {
             pageList.add(className.toString())
         }
 
-        println("$TAG process: List size: ${pageList.size} isApp: $isApp")
-
         val outputFile = getTempFile(filer, moduleName)
         if (moduleName.isNotEmpty() && isApp && targetModule != null) {
-            makeHelloJavaPoet(filer, moduleName, targetModule)
-
+            makeJavaFile(filer, moduleName, targetModule)
             outputFile.bufferedReader().useLines { lines ->
                 lines.filter { it.isNotEmpty() }.forEach { line ->
                     pageList.add(line)
                 }
             }
-
-            makeKotlinFinalFile(filer, pageList)
+            if (outputFile.exists()) {
+                outputFile.delete()
+            }
+            makeKotlinFile(filer, pageList)
         } else if (!isApp) {
             FileOutputStream(outputFile, true).bufferedWriter().use { writer->
                 pageList.forEach { line ->
@@ -90,9 +85,27 @@ class PoetProcessor : AbstractProcessor() {
         return false
     }
 
-    private fun makeKotlinFinalFile(filer: Filer, pageList: MutableList<String>) {
+    private fun makeKotlinFile(filer: Filer, pageList: MutableList<String>) {
+        println("$TAG process: kotlin List size: ${pageList.size}")
 
-//        ClassName("com.doing.dirooter.model", "")
+//        val packageName = "com.doing.poet.kotlin"
+//        val fileName = "PageModel"
+//        val pageModelClass = ClassName(packageName, fileName)
+//        val pageModelFile = FileSpec.builder(packageName, fileName)
+//            .addType(
+//                TypeSpec.classBuilder(fileName)
+//                    .addProperty(
+//                        PropertySpec.builder("pageList", typeNameOf<MutableList<String>>())
+//                            .initializer(buildCodeBlock {
+//                                mutableListOf<String>()
+//                            })
+//                            .build()
+//                    ).addInitializerBlock(buildCodeBlock {
+//
+//                    })
+//                    .build()
+//            )
+
     }
 
     private fun getTempFile(filer: Filer, moduleName: String): File {
@@ -109,29 +122,16 @@ class PoetProcessor : AbstractProcessor() {
         return File(rootDir, PoetCompilerConstant.TEMP_DATA_FILE)
     }
 
-    private fun makeHelloJavaPoet(filer: Filer, moduleName: String, targetModule: String) {
-        val method = MethodSpec.methodBuilder(PoetCompilerConstant.METHOD_NAME_TEST)
-            .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-            .returns(TypeName.VOID)
-            .addParameter(Array<String>::class.java, "args")
-            .addStatement(
-                "\$T.out.println(\$S)",
-                System::class.java,
-                "$TAG Doing Hello, Java Poet!"
-            )
-            .build()
+    private fun makeJavaFile(filer: Filer, moduleName: String, targetModule: String) {
+        val packageName = "com.doing.poet.java"
 
-        val classSpec = TypeSpec.classBuilder(PoetCompilerConstant.CLASS_NAME_TEST)
-            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-            .addMethod(method)
-            .build()
-
-        val packageName = "com.doing.javapoet"
-        val javaFile = JavaFile.builder(packageName, classSpec).build()
+        val javaFile = CodeUtil.javaFile(packageName, TAG)
         val targetFile = getTargetFile(filer, packageName, javaFile.typeSpec.name, moduleName, targetModule)
         println("$TAG makeHelloJavaPoet name: ${targetFile.absolutePath} typeSpec.name: ${javaFile.typeSpec.name}")
         javaFile.writeTo(targetFile)
     }
+
+
 
     private fun getTargetFile(filer: Filer, packageName: String, fileName: String,
         currentModuleName: String, targetModule: String): File {
