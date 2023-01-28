@@ -19,27 +19,34 @@ import javax.tools.StandardLocation
 @AutoService(Processor::class)
 class DiNavigatorProcessor : AbstractProcessor(){
 
-    private var count = 1
-    private lateinit var messager: Messager
-    private lateinit var filer: Filer
+    override fun getSupportedOptions(): MutableSet<String> {
+        return mutableSetOf(Constant.OPTION_MODULE_NAME)
+    }
 
     override fun init(processingEnv: ProcessingEnvironment) {
         super.init(processingEnv)
+        val options = processingEnv.options
+        val moduleName = options[Constant.OPTION_MODULE_NAME]
+//        println("${Constant.TAG} >>> Options : $options")
+
         this.messager = processingEnv.messager
         this.filer = processingEnv.filer
         val sourceVersion = processingEnv.sourceVersion
-        val options = processingEnv.options
 
-        println("${Constant.TAG} >>> Runtime: ${ManagementFactory.getRuntimeMXBean().name}")
-        println("${Constant.TAG} >>> This: ${this.hashCode()}")
-        println("${Constant.TAG} >>> DiNavigatorAPTManager singleTon HashCode:" +
-                " ${DiNavigatorAPTJavaManager.getInstance()}")
-        println("${Constant.TAG} >>> Options : $options")
+
+//        println("${Constant.TAG} >>> Runtime: ${ManagementFactory.getRuntimeMXBean().name}")
+//        println("${Constant.TAG} >>> This: ${this.hashCode()}")
+//        println("${Constant.TAG} >>> DiNavigatorAPTManager singleTon HashCode:" +
+//                " ${DiNavigatorAPTJavaManager.getInstance()}")
 
 //        println()
 //        Throwable().printStackTrace()
 //        println()
     }
+
+    private var count = 1
+    private lateinit var messager: Messager
+    private lateinit var filer: Filer
 
     override fun process(annotations: MutableSet<out TypeElement>?,
         roundEnv: RoundEnvironment?): Boolean {
@@ -80,33 +87,31 @@ class DiNavigatorProcessor : AbstractProcessor(){
             e.printStackTrace()
         }
 
-        println()
+//        println()
         count++
         return false
     }
 
-    private fun createJsonFile(
-        assetPath: String,
-        map: MutableMap<String, DestinationEntity>
-    ) {
+    private fun createJsonFile(assetPath: String, map: MutableMap<String, DestinationEntity>) {
         val file = File(assetPath)
         if (!file.exists()) {
             file.mkdirs()
         }
 
         val outputFile = File(assetPath, Constant.OUTPUT_FILE_NAME)
-        println("${Constant.TAG} >>> kotlin$count OutputFile Exists: ${outputFile.exists()}")
+//        println("${Constant.TAG} >>> kotlin$count OutputFile Exists: ${outputFile.exists()}")
         if (outputFile.exists()) {
             outputFile.bufferedReader().use { reader ->
                 val destinations = JSON.parseObject(reader.readText(),
                     object : TypeReference<HashMap<String, DestinationEntity>>() {})
-                println("${Constant.TAG} >>> kotlin$count Content: $destinations")
-                println("${Constant.TAG} >>> kotlin$count Map Size: ${map.size}")
-                println("${Constant.TAG} >>> kotlin$count Destinations Size: ${destinations.size}")
+
+//                println("${Constant.TAG} >>> kotlin$count Content: $destinations")
+//                println("${Constant.TAG} >>> kotlin$count Map Size: ${map.size}")
+//                println("${Constant.TAG} >>> kotlin$count Destinations Size: ${destinations.size}")
+//                println("${Constant.TAG} >>> kotlin$count Map Size: ${map.size}")
 
                 map.putAll(destinations)
-                println("${Constant.TAG} >>> kotlin$count Map Size: ${map.size}")
-                println()
+//                println()
             }
             outputFile.delete()
         }
@@ -185,8 +190,6 @@ class DiNavigatorProcessor : AbstractProcessor(){
         return SourceVersion.latestSupported()
     }
 
-    override fun getSupportedOptions(): MutableSet<String> {
-        return mutableSetOf(Constant.OPTION_MODULE_NAME)
-    }
+
 
 }

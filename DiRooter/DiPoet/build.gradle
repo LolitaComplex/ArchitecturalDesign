@@ -16,7 +16,11 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [MODULE_NAME: project.getName()]
+                arguments = [
+                    MODULE_NAME: project.getName(),
+                    IS_APP: false.toString(),
+                    IS_POET: true.toString()
+                ]
             }
         }
     }
@@ -52,4 +56,5 @@ dependencies {
     implementation project(":NavigationAnnotation")
     implementation project(':NavigationBase')
     kapt project(":NavigationCompiler")
+    kapt project(":PoetCompiler")
 }
