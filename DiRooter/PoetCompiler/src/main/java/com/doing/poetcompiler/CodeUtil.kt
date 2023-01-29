@@ -4,6 +4,7 @@ import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.TypeName
 import com.squareup.javapoet.TypeSpec
+import com.squareup.kotlinpoet.*
 import javax.lang.model.element.Modifier
 
 object CodeUtil {
@@ -26,5 +27,32 @@ object CodeUtil {
             .build()
 
         return JavaFile.builder(packageName, classSpec).build()
+    }
+
+    fun kotlinFile(packageName: String, fileName: String,
+           pageList: MutableList<String>): FileSpec {
+
+        return FileSpec.builder(packageName, fileName)
+            .addType(
+                com.squareup.kotlinpoet.TypeSpec.classBuilder(fileName)
+                    .addProperty(
+                        PropertySpec.builder("pageList", typeNameOf<ArrayList<String>>())
+                            .initializer("%T<String>()", ArrayList::class.java)
+                            .addModifiers(KModifier.PRIVATE)
+                            .build()
+                    )
+                    .addInitializerBlock(buildCodeBlock {
+                        pageList.forEach { page ->
+                            add("this.pageList.add(%S)\n", page)
+                        }
+                    })
+                    .addFunction(
+                        FunSpec.builder("getList")
+                            .addStatement("return this.pageList")
+                            .returns(typeNameOf<MutableList<String>>())
+                            .build()
+                    )
+                    .build()
+            ).build()
     }
 }

@@ -7,11 +7,13 @@ import android.widget.Button
 import androidx.navigation.findNavController
 import com.doing.navigationbase.utils.NavUtil
 import com.doing.navigatorannotation.Destination
+import com.doing.poet.kotlin.PageModel
 
 @Destination(pageUrl = PoetConstant.ACTIVITY_POET)
 class PoetActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_poet)
 
         val navController = findNavController(R.id.nav_host_fragment)

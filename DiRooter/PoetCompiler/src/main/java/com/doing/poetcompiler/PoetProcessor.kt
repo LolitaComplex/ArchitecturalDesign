@@ -71,7 +71,7 @@ class PoetProcessor : AbstractProcessor() {
             if (outputFile.exists()) {
                 outputFile.delete()
             }
-            makeKotlinFile(filer, pageList)
+            makeKotlinFile(filer, moduleName, targetModule,pageList)
         } else if (!isApp) {
             FileOutputStream(outputFile, true).bufferedWriter().use { writer->
                 pageList.forEach { line ->
@@ -85,28 +85,18 @@ class PoetProcessor : AbstractProcessor() {
         return false
     }
 
-    private fun makeKotlinFile(filer: Filer, pageList: MutableList<String>) {
+    private fun makeKotlinFile(filer: Filer, moduleName: String, targetModule: String,
+           pageList: MutableList<String>) {
         println("$TAG process: kotlin List size: ${pageList.size}")
 
-//        val packageName = "com.doing.poet.kotlin"
-//        val fileName = "PageModel"
-//        val pageModelClass = ClassName(packageName, fileName)
-//        val pageModelFile = FileSpec.builder(packageName, fileName)
-//            .addType(
-//                TypeSpec.classBuilder(fileName)
-//                    .addProperty(
-//                        PropertySpec.builder("pageList", typeNameOf<MutableList<String>>())
-//                            .initializer(buildCodeBlock {
-//                                mutableListOf<String>()
-//                            })
-//                            .build()
-//                    ).addInitializerBlock(buildCodeBlock {
-//
-//                    })
-//                    .build()
-//            )
+        val packageName = "com.doing.poet.kotlin"
+        val fileName = "PageModel"
+        val kotlinFile = CodeUtil.kotlinFile(packageName, fileName, pageList)
+        val targetFile = getTargetFile(filer, packageName, "${fileName}.kt", moduleName, targetModule)
 
+        kotlinFile.writeTo(targetFile)
     }
+
 
     private fun getTempFile(filer: Filer, moduleName: String): File {
         val resource = filer.createResource(StandardLocation.SOURCE_OUTPUT,
@@ -131,15 +121,10 @@ class PoetProcessor : AbstractProcessor() {
         javaFile.writeTo(targetFile)
     }
 
-
-
     private fun getTargetFile(filer: Filer, packageName: String, fileName: String,
         currentModuleName: String, targetModule: String): File {
 
-        val resource = filer.createResource(
-            StandardLocation.SOURCE_OUTPUT,
-            "", fileName
-        )
+        val resource = filer.createResource(StandardLocation.SOURCE_OUTPUT, "", fileName)
         val targetResourcePath = resource.name.toString().replace(
             "${File.separator}$currentModuleName${File.separator}",
             "${File.separator}$targetModule${File.separator}"
