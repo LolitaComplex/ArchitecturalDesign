@@ -51,8 +51,8 @@ dependencies {
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation project(':DiAPTAnnotation')
 
-    implementation project(":NavigationAnnotation")
     implementation project(':NavigationBase')
     kapt project(":NavigationCompiler")
     kapt project(":PoetCompiler")

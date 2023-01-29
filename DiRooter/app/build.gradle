@@ -42,6 +42,8 @@ android {
     }
 }
 
+
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -58,7 +60,7 @@ dependencies {
     implementation project(':DiLibrary')
     implementation project(':DiNavigator')
     implementation project(':DiPoet')
-    implementation project(':NavigationAnnotation')
+    implementation project(':DiAPTAnnotation')
     implementation project(':NavigationBase')
     kapt project(":NavigationCompiler")
     kapt project(':PoetCompiler')

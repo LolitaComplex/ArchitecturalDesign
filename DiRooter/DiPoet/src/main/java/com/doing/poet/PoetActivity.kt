@@ -7,7 +7,6 @@ import android.widget.Button
 import androidx.navigation.findNavController
 import com.doing.navigationbase.utils.NavUtil
 import com.doing.navigatorannotation.Destination
-import com.doing.poet.kotlin.PageModel
 
 @Destination(pageUrl = PoetConstant.ACTIVITY_POET)
 class PoetActivity : AppCompatActivity() {

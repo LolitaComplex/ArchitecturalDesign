@@ -2,7 +2,10 @@ package com.doing.poetcompiler
 
 import com.doing.navigatorannotation.Destination
 import com.google.auto.service.AutoService
-import com.squareup.kotlinpoet.*
+//import com.sun.tools.javac.api.JavacTrees
+//import com.sun.tools.javac.processing.JavacProcessingEnvironment
+//import com.sun.tools.javac.tree.TreeMaker
+//import com.sun.tools.javac.util.Names
 import java.io.File
 import java.io.FileOutputStream
 import javax.annotation.processing.*
@@ -20,12 +23,14 @@ class PoetProcessor : AbstractProcessor() {
     }
 
     private lateinit var TAG :String
-    private lateinit var mElementUtil: Elements
-    private lateinit var mTypeUtils: Types
     private lateinit var mFiler: Filer
     private var mModuleName = ""
     private var isApp = false
     private var mPoetName: String? = null
+
+//    private lateinit var mJcTree: JavacTrees
+//    private lateinit var mTreeMaker: TreeMaker
+//    private lateinit var mNames: Names
 
     override fun init(processingEnv: ProcessingEnvironment) {
         super.init(processingEnv)
@@ -33,14 +38,18 @@ class PoetProcessor : AbstractProcessor() {
         val moduleName = processingEnv.options[PoetCompilerConstant.OPTION_MODULE_NAME]
         this.TAG = "$moduleName >>> ${PoetCompilerConstant.TAG}"
 
-        this.mElementUtil = processingEnv.elementUtils
-        this.mTypeUtils = processingEnv.typeUtils
         this.mFiler = processingEnv.filer
         this.mModuleName = moduleName ?: ""
         this.isApp = processingEnv.options[PoetCompilerConstant.OPTION_IS_APP] == "true"
         this.mPoetName = processingEnv.options[PoetCompilerConstant.OPTION_POET_NAME]
         println("$TAG init SourceVersion: ${processingEnv.sourceVersion}" +
                 " evn hashcode: ${processingEnv.hashCode()} count: ${count++}")
+
+//        val context = (processingEnv as JavacProcessingEnvironment).context
+
+//        this.mJcTree = JavacTrees.instance(processingEnv)
+//        this.mTreeMaker = TreeMaker.instance(context)
+//        this.mNames = Names.instance(context)
     }
 
     override fun process(annotations: MutableSet<out TypeElement>?, roundEnv: RoundEnvironment?): Boolean {
@@ -68,9 +77,9 @@ class PoetProcessor : AbstractProcessor() {
                     pageList.add(line)
                 }
             }
-            if (outputFile.exists()) {
-                outputFile.delete()
-            }
+//            if (outputFile.exists()) {
+//                outputFile.delete()
+//            }
             makeKotlinFile(filer, moduleName, targetModule,pageList)
         } else if (!isApp) {
             FileOutputStream(outputFile, true).bufferedWriter().use { writer->
