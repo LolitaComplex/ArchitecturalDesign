@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.MainActivity_btn_arooter).setOnClickListener {
-            ARouter.getInstance().build(RouterConstant.ACTIVITY_ROOTER_MAIN).navigation()
+            ARouter.getInstance().build(RouterConstant.ACTIVITY_ROUTER_MAIN).navigation()
         }
 
         val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment);

@@ -4,6 +4,18 @@
 
     <application>
         <activity
+            android:name=".page.GlobalErrorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".page.MemberBenefitsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".page.ChargeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".page.ProfileDetailActivity"
+            android:exported="false" />
+        <activity
             android:name="com.doing.dirouter.RouterMainActivity"
             android:exported="false" />
     </application>
