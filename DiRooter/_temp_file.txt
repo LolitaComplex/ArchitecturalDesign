@@ -1,8 +1,0 @@
-com.doing.dinavigator.BottomNavigationActivity
-com.doing.dinavigator.NavMainActivity
-com.doing.dinavigator.ui.dashboard.DashboardFragment
-com.doing.dinavigator.ui.home.HomeFragment
-com.doing.dinavigator.ui.notifications.NotificationsFragment
-com.doing.poet.java.JavaPoetActivity
-com.doing.poet.kotlin.KotlinPoetActivity
-com.doing.poet.PoetActivity

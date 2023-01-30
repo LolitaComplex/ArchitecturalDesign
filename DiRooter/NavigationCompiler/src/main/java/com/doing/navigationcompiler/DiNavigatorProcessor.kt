@@ -25,13 +25,13 @@ class DiNavigatorProcessor : AbstractProcessor(){
 
     override fun init(processingEnv: ProcessingEnvironment) {
         super.init(processingEnv)
-        val options = processingEnv.options
-        val moduleName = options[Constant.OPTION_MODULE_NAME]
+//        val options = processingEnv.options
+//        val moduleName = options[Constant.OPTION_MODULE_NAME]
 //        println("${Constant.TAG} >>> Options : $options")
 
         this.messager = processingEnv.messager
         this.filer = processingEnv.filer
-        val sourceVersion = processingEnv.sourceVersion
+//        val sourceVersion = processingEnv.sourceVersion
 
 
 //        println("${Constant.TAG} >>> Runtime: ${ManagementFactory.getRuntimeMXBean().name}")
@@ -67,12 +67,12 @@ class DiNavigatorProcessor : AbstractProcessor(){
 //            println("${Constant.TAG} >>> kotlin$count Resource Path: $resourcePath")
 //            println("${Constant.TAG} >>> kotlin$count File Separator: ${File.separator}build${File.separator}")
 
-            val index = resourcePath.indexOf(name)
+//            val index = resourcePath.indexOf(name)
 
 //            println("${Constant.TAG} >>> kotlin$count Build Index: $index")
 
             val modulePath = resourcePath.substring(0, resourcePath.indexOf(name))
-            val moduleName = modulePath.substring(modulePath.lastIndexOf("/") + 1, modulePath.length)
+//            val moduleName = modulePath.substring(modulePath.lastIndexOf("/") + 1, modulePath.length)
             val projectPath = modulePath.substring(0, modulePath.lastIndexOf("/"))
 
 //            println("${Constant.TAG} >>> kotlin$count Module Path: $modulePath")

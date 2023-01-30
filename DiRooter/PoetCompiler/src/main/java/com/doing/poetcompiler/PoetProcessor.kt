@@ -1,18 +1,25 @@
 package com.doing.poetcompiler
 
+import com.doing.navigatorannotation.AddJavaCode
+import com.doing.navigatorannotation.AddKotlinCode
 import com.doing.navigatorannotation.Destination
 import com.google.auto.service.AutoService
-//import com.sun.tools.javac.api.JavacTrees
-//import com.sun.tools.javac.processing.JavacProcessingEnvironment
-//import com.sun.tools.javac.tree.TreeMaker
-//import com.sun.tools.javac.util.Names
+import com.sun.source.tree.Tree
+import com.sun.tools.javac.api.JavacTrees
+import com.sun.tools.javac.processing.JavacProcessingEnvironment
+import com.sun.tools.javac.tree.JCTree
+import com.sun.tools.javac.tree.TreeMaker
+import com.sun.tools.javac.tree.TreeScanner
+import com.sun.tools.javac.util.Names
 import java.io.File
 import java.io.FileOutputStream
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
+import javax.lang.model.element.Element
 import javax.lang.model.element.TypeElement
 import javax.lang.model.util.Elements
 import javax.lang.model.util.Types
+import javax.tools.Diagnostic
 import javax.tools.StandardLocation
 
 @AutoService(Processor::class)
@@ -28,9 +35,9 @@ class PoetProcessor : AbstractProcessor() {
     private var isApp = false
     private var mPoetName: String? = null
 
-//    private lateinit var mJcTree: JavacTrees
-//    private lateinit var mTreeMaker: TreeMaker
-//    private lateinit var mNames: Names
+    private lateinit var mJcTree: JavacTrees
+    private lateinit var mTreeMaker: TreeMaker
+    private lateinit var mNames: Names
 
     override fun init(processingEnv: ProcessingEnvironment) {
         super.init(processingEnv)
@@ -45,11 +52,15 @@ class PoetProcessor : AbstractProcessor() {
         println("$TAG init SourceVersion: ${processingEnv.sourceVersion}" +
                 " evn hashcode: ${processingEnv.hashCode()} count: ${count++}")
 
-//        val context = (processingEnv as JavacProcessingEnvironment).context
+        println("$TAG 哈哈哈哈 和和IEhi诶")
+        processingEnv.messager.printMessage(Diagnostic.Kind.OTHER, "========================")
 
-//        this.mJcTree = JavacTrees.instance(processingEnv)
-//        this.mTreeMaker = TreeMaker.instance(context)
-//        this.mNames = Names.instance(context)
+        val context = (processingEnv as JavacProcessingEnvironment).context
+
+        this.mJcTree = JavacTrees.instance(processingEnv)
+        this.mTreeMaker = TreeMaker.instance(context)
+        this.mNames = Names.instance(context)
+        println("$TAG JavacTree: $mJcTree TreeMaker: $mTreeMaker Names: $mNames")
     }
 
     override fun process(annotations: MutableSet<out TypeElement>?, roundEnv: RoundEnvironment?): Boolean {
@@ -58,7 +69,7 @@ class PoetProcessor : AbstractProcessor() {
         val targetModule = mPoetName
         val elements = roundEnv?.getElementsAnnotatedWith(Destination::class.java)
 
-        if (elements == null || elements.size < 1) {
+        if (elements == null || elements.isEmpty()) {
             return false
         }
 
@@ -70,6 +81,9 @@ class PoetProcessor : AbstractProcessor() {
         }
 
         val outputFile = getTempFile(filer, moduleName)
+        if (!outputFile.exists()) {
+            outputFile.createNewFile()
+        }
         if (moduleName.isNotEmpty() && isApp && targetModule != null) {
             makeJavaFile(filer, moduleName, targetModule)
             outputFile.bufferedReader().useLines { lines ->
@@ -77,10 +91,14 @@ class PoetProcessor : AbstractProcessor() {
                     pageList.add(line)
                 }
             }
-//            if (outputFile.exists()) {
-//                outputFile.delete()
-//            }
+            if (outputFile.exists()) {
+                outputFile.delete()
+            }
             makeKotlinFile(filer, moduleName, targetModule,pageList)
+
+            val javaElements = roundEnv.getElementsAnnotatedWith(AddJavaCode::class.java)
+            addJavaCode(javaElements)
+
         } else if (!isApp) {
             FileOutputStream(outputFile, true).bufferedWriter().use { writer->
                 pageList.forEach { line ->
@@ -92,6 +110,39 @@ class PoetProcessor : AbstractProcessor() {
 
 
         return false
+    }
+
+    private fun addJavaCode(javaElements: Set<Element>?) {
+        if (javaElements == null || javaElements.isEmpty()) {
+            return
+        }
+        val jcTree = mJcTree
+
+
+        javaElements.forEach { element ->
+            if (!element.kind.isClass) {
+                return@forEach
+            }
+
+            val typeElement = element as TypeElement
+            val classDec = jcTree.getTree(typeElement)
+            val methods = mutableListOf<JCTree.JCMethodDecl>()
+
+            classDec.accept(object : TreeScanner() {
+                override fun visitClassDef(tree: JCTree.JCClassDecl?) {
+                    tree?.defs?.forEach { item ->
+                        if (item.kind == Tree.Kind.METHOD) {
+                            val method = item as JCTree.JCMethodDecl
+                            
+                            println("$TAG: AddJavaCode method name:" +
+                                    " ${method.getName()}")
+                        }
+                    }
+
+                    super.visitClassDef(tree)
+                }
+            })
+        }
     }
 
     private fun makeKotlinFile(filer: Filer, moduleName: String, targetModule: String,
@@ -150,7 +201,11 @@ class PoetProcessor : AbstractProcessor() {
     }
 
     override fun getSupportedAnnotationTypes(): MutableSet<String> {
-        return mutableSetOf(Destination::class.java.canonicalName)
+        return mutableSetOf(
+            Destination::class.java.canonicalName,
+            AddJavaCode::class.java.canonicalName,
+            AddKotlinCode::class.java.canonicalName
+        )
     }
 
     override fun getSupportedSourceVersion(): SourceVersion {
@@ -161,7 +216,8 @@ class PoetProcessor : AbstractProcessor() {
         return mutableSetOf(
             PoetCompilerConstant.OPTION_MODULE_NAME,
             PoetCompilerConstant.OPTION_IS_APP,
-            PoetCompilerConstant.OPTION_POET_NAME
+            PoetCompilerConstant.OPTION_POET_NAME,
+            "AROUTER_MODULE_NAME"
         )
     }
 }
