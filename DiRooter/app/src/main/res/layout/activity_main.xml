@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".MainActivity">
+    tools:context="com.doing.app.MainActivity">
 
     <fragment
         android:id="@+id/nav_host_fragment"
@@ -31,6 +31,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Poet"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:layout_marginBottom="10dp"
+        />
+
+    <Button
+        android:id="@+id/MainActivity_btn_arooter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ARouter"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textAllCaps="false"
