@@ -13,6 +13,7 @@ import com.sun.tools.javac.tree.TreeScanner
 import com.sun.tools.javac.util.Names
 import java.io.File
 import java.io.FileOutputStream
+import java.util.ArrayList
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.Element
@@ -67,10 +68,21 @@ class PoetProcessor : AbstractProcessor() {
         val filer = mFiler
         val moduleName = mModuleName
         val targetModule = mPoetName
+
+        createCodeDataFile(roundEnv, filer, moduleName, targetModule)
+
+        val javaElements = roundEnv?.getElementsAnnotatedWith(AddJavaCode::class.java)
+        addJavaCode(javaElements)
+
+        return false
+    }
+
+    private fun createCodeDataFile(roundEnv: RoundEnvironment?, filer: Filer,
+        moduleName: String, targetModule: String?): Boolean {
         val elements = roundEnv?.getElementsAnnotatedWith(Destination::class.java)
 
         if (elements == null || elements.isEmpty()) {
-            return false
+            return true
         }
 
         val pageList = mutableListOf<String>()
@@ -94,30 +106,27 @@ class PoetProcessor : AbstractProcessor() {
             if (outputFile.exists()) {
                 outputFile.delete()
             }
-            makeKotlinFile(filer, moduleName, targetModule,pageList)
+            makeKotlinFile(filer, moduleName, targetModule, pageList)
 
-            val javaElements = roundEnv.getElementsAnnotatedWith(AddJavaCode::class.java)
-            addJavaCode(javaElements)
 
         } else if (!isApp) {
-            FileOutputStream(outputFile, true).bufferedWriter().use { writer->
+            FileOutputStream(outputFile, true).bufferedWriter().use { writer ->
                 pageList.forEach { line ->
                     writer.write("${line}\n")
                 }
                 writer.flush()
             }
         }
-
-
         return false
     }
 
     private fun addJavaCode(javaElements: Set<Element>?) {
+        println("$TAG addJavaCode elements size: ${javaElements?.size}")
         if (javaElements == null || javaElements.isEmpty()) {
             return
         }
         val jcTree = mJcTree
-
+        val maker = mTreeMaker
 
         javaElements.forEach { element ->
             if (!element.kind.isClass) {
@@ -130,16 +139,28 @@ class PoetProcessor : AbstractProcessor() {
 
             classDec.accept(object : TreeScanner() {
                 override fun visitClassDef(tree: JCTree.JCClassDecl?) {
+
+                    var method : JCTree.JCMethodDecl? = null
                     tree?.defs?.forEach { item ->
                         if (item.kind == Tree.Kind.METHOD) {
-                            val method = item as JCTree.JCMethodDecl
-                            
+                            val itemMethod = item as JCTree.JCMethodDecl
+                            if (itemMethod.name.toString() == "testJavaCode") {
+                                method = itemMethod
+                            }
                             println("$TAG: AddJavaCode method name:" +
-                                    " ${method.getName()}")
+                                    " ${method?.getName()}")
                         }
                     }
+                    if (method != null) {
 
+                    }
                     super.visitClassDef(tree)
+                }
+
+                override fun visitMethodDef(p0: JCTree.JCMethodDecl?) {
+                    super.visitMethodDef(p0)
+
+
                 }
             })
         }

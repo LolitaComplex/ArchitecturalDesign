@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
@@ -19,12 +20,29 @@ import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.TypeMirror;
+import javax.tools.Diagnostic;
 
-//@AutoService(Processor.class)
+@AutoService(Processor.class)
 public class DiNavigatorJavaProcessor extends AbstractProcessor {
 
     private TypeElement typeElement;
     private int count = 1;
+
+    private static int counter = 0;
+
+    private static String TAG = "";
+
+    @Override
+    public synchronized void init(ProcessingEnvironment processingEnv) {
+        super.init(processingEnv);
+
+        String modleName = processingEnv.getOptions().get("MODULE_NAME");
+        this.TAG = modleName + " >>> java ";
+        String message = this.TAG + " static counter: " + counter++ +
+                " manage hashcode: " + DiNavigatorAPTJavaManager.getInstance();
+        System.out.println(message);
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, message);
+    }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
@@ -66,7 +84,7 @@ public class DiNavigatorJavaProcessor extends AbstractProcessor {
     public Set<String> getSupportedAnnotationTypes() {
         System.out.println(Constant.TAG + ">>>> java" + count + " getSupportedAnnotationTypes : "
                 + Destination.class.getCanonicalName());
-        return Collections.singleton(DestinationJava.class.getCanonicalName());
+        return Collections.singleton(Destination.class.getCanonicalName());
     }
 
     @Override
