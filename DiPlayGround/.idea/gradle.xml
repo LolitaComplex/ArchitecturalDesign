@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/JavaConcurrentDemo" />
+            <option value="$PROJECT_DIR$/KotlinCoroutines" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

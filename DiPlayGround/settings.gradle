@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "DiPlayGround"
 include ':app'
 include ':JavaConcurrentDemo'
+include ':KotlinCoroutines'
