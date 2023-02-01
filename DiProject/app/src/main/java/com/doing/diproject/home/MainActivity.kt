@@ -1,15 +1,10 @@
-package com.doing.diproject
+package com.doing.diproject.home
 
 import android.os.Bundle
-import android.util.Log
+import com.doing.diproject.R
 import com.doing.diproject.common.ActivityProvider
 import com.doing.diproject.common.DiBaseActivity
-import com.doing.diproject.logic.MainLogic
-import com.doing.diproject.net.ApiFactory
-import com.doing.hilibrary.log.DiLog
-import com.doing.hilibrary.restful.DiCallback
-import com.doing.hilibrary.restful.DiResponse
-import org.json.JSONObject
+import com.doing.diproject.home.logic.MainLogic
 
 class MainActivity : DiBaseActivity(), ActivityProvider {
 
@@ -22,9 +17,6 @@ class MainActivity : DiBaseActivity(), ActivityProvider {
         val mainLogic = MainLogic(this)
         mainLogic.initLogic(savedInstanceState)
         mMainLogic = mainLogic
-
-
-
 
     }
 

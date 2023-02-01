@@ -1,11 +1,13 @@
-package com.doing.diproject.fragment
+package com.doing.diproject.home.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import com.doing.diproject.R
 import com.doing.diproject.TestService
 import com.doing.diproject.common.DiBaseFragment
+import com.doing.diproject.login.LoginActivity
 import com.doing.diproject.net.ApiFactory
 import com.doing.hilibrary.log.DiLog
 import com.doing.hilibrary.restful.DiCallback
@@ -21,12 +23,13 @@ class HomeFragment : DiBaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.HomeFragment_btn_request).setOnClickListener {
-            ApiFactory.create(TestService::class.java).getCities("beijing")
-                .enqueue(object : DiCallback<String> {
-                    override fun onSuccess(response: DiResponse<String>) {
-                        DiLog.d("Doing", "${response.data?.toString()}")
-                    }
-                })
+//            ApiFactory.create(TestService::class.java).getCities("beijing")
+//                .enqueue(object : DiCallback<String> {
+//                    override fun onSuccess(response: DiResponse<String>) {
+//                        DiLog.d("Doing", "${response.data?.toString()}")
+//                    }
+//                })
+            startActivity(Intent(context, LoginActivity::class.java))
         }
     }
 }
