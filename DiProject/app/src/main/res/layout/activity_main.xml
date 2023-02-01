@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.doing.diui.tab.bottom.DiTabBottomLayout
+    <com.doing.diui.tab.bottom.DiTabBottomView
         android:id="@+id/MainActivity_tab_bottom"
         android:layout_width="match_parent"
         android:layout_height="70dp"

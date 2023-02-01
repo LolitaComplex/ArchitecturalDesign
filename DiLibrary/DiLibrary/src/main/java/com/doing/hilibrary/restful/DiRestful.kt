@@ -5,7 +5,17 @@ import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 import java.util.concurrent.ConcurrentHashMap
 
-class DiRestful(val baseUrl: String, val callFactory: DiCall.Factory) {
+class DiRestful(private val baseUrl: String, callFactory: DiCall.Factory) {
+
+    private val interceptors = mutableListOf<DiInterceptor>()
+    private val scheduler = Scheduler(callFactory, interceptors)
+
+    fun addInterceptor(interceptor: DiInterceptor) {
+        if (interceptors.contains(interceptor)) {
+            return
+        }
+        interceptors.add(interceptor)
+    }
 
     fun <T> create(service: Class<T>): T {
         return Proxy.newProxyInstance(service.classLoader, arrayOf<Class<*>>(service),
@@ -21,7 +31,7 @@ class DiRestful(val baseUrl: String, val callFactory: DiCall.Factory) {
                     }
 
                     val request: DiRequest = parser.newRequest(method, args)
-                    return callFactory.newCall(request)
+                    return scheduler.newCall(request)
                 }
             }) as T
     }
