@@ -17,7 +17,10 @@
         android:theme="@style/Theme.DiProject"
         tools:targetApi="31" >
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".account.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".account.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".home.MainActivity"

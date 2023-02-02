@@ -1,10 +1,12 @@
-package com.doing.diproject.login
+package com.doing.diproject.account
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.get
 import com.doing.diproject.R
 import com.doing.diproject.common.DiBaseActivity
 import com.doing.diproject.net.ApiFactory
@@ -32,7 +34,7 @@ class LoginActivity : DiBaseActivity() {
         }
 
         findViewById<TextView>(R.id.LoginActivity_tv_register).setOnClickListener {
-            // 注册
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
 
         mEtItemUsername = findViewById<InputItemLayout>(R.id.LoginActivity_input_username)
@@ -41,13 +43,14 @@ class LoginActivity : DiBaseActivity() {
         findViewById<Button>(R.id.LoginActivity_btn_login).setOnClickListener {
             onLogin()
         }
+
     }
 
     private fun onLogin() {
-        val username: String? = mEtItemUsername.getEditText().text.toString()
-        val password: String? = mEtPassword.getEditText().text.toString()
+        val username: String = mEtItemUsername.getEditText().text.toString()
+        val password: String = mEtPassword.getEditText().text.toString()
 
-        if (username.isNullOrBlank() || password.isNullOrBlank()) {
+        if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "输出有误", Toast.LENGTH_SHORT).show()
             return
         }
@@ -60,5 +63,16 @@ class LoginActivity : DiBaseActivity() {
                 }
 
             })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            val userName = data.getStringExtra(RegisterActivity.INTENT_KEY_USERNAME)
+            val password = data.getStringExtra(RegisterActivity.INTENT_KEY_PASSWORD)
+            mEtPassword.getEditText().setText(password)
+            mEtItemUsername.getEditText().setText(userName)
+        }
     }
 }

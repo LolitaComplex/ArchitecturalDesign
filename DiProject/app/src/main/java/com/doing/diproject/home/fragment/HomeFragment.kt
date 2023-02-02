@@ -5,13 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import com.doing.diproject.R
-import com.doing.diproject.TestService
 import com.doing.diproject.common.DiBaseFragment
-import com.doing.diproject.login.LoginActivity
-import com.doing.diproject.net.ApiFactory
-import com.doing.hilibrary.log.DiLog
-import com.doing.hilibrary.restful.DiCallback
-import com.doing.hilibrary.restful.DiResponse
+import com.doing.diproject.account.LoginActivity
 
 class HomeFragment : DiBaseFragment() {
 
