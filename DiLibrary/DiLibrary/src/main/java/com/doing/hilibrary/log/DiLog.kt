@@ -24,7 +24,7 @@ object DiLog {
     }
 
     @JvmStatic
-    fun e(tag: String = defaultTag(), e: Throwable, vararg content: Any) {
+    fun e(tag: String = defaultTag(), e: Throwable? = null, vararg content: Any) {
         log(DiLogType.E, tag, *content)
     }
 

@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import com.alibaba.android.arouter.launcher.ARouter
 import com.doing.diproject.R
+import com.doing.diproject.account.AccountConstant
 import com.doing.diproject.common.DiBaseFragment
 import com.doing.diproject.account.LoginActivity
 
@@ -24,7 +26,9 @@ class HomeFragment : DiBaseFragment() {
 //                        DiLog.d("Doing", "${response.data?.toString()}")
 //                    }
 //                })
-            startActivity(Intent(context, LoginActivity::class.java))
+            ARouter.getInstance()
+                .build(AccountConstant.ROUTE_ACTIVITY_LOGIN)
+                .navigation()
         }
     }
 }

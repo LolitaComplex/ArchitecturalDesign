@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.doing.diproject.R
 import com.doing.diproject.net.ApiFactory
 import com.doing.diui.view.input.InputItemLayout
@@ -16,6 +17,7 @@ import com.doing.hilibrary.restful.DiCallback
 import com.doing.hilibrary.restful.DiHttpException
 import com.doing.hilibrary.restful.DiResponse
 
+@Route(path = AccountConstant.ROUTE_ACTIVITY_REGISTER)
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var mEtOrderId: InputItemLayout
@@ -36,7 +38,9 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        findViewById<TextView>(R.id.RegisterActivity_tv_back).setOnClickListener {
+        val tvBack = findViewById<TextView>(R.id.RegisterActivity_tv_back)
+        tvBack.setText(R.string.if_back)
+        tvBack.setOnClickListener {
             onBackPressed()
         }
 
