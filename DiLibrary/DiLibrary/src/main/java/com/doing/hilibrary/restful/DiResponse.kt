@@ -10,6 +10,7 @@ class DiResponse<T> {
 
     var code: Int = -1
     var data: T? = null
+    var errorData: Map<String, String>? = null
     var msg: String = ""
     var rawData: String = ""
     val stream: InputStream? = null

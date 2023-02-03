@@ -22,6 +22,10 @@
         <activity
             android:name=".account.LoginActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".router.DegradeGlobalActivity"
+            android:exported="false" />
         <activity
             android:name=".home.MainActivity"
             android:exported="true" >

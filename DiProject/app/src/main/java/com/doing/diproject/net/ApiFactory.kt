@@ -10,6 +10,7 @@ object ApiFactory {
 
     init {
         restful.addInterceptor(TokenInterceptor())
+        restful.addInterceptor(HttpInterceptor())
     }
 
 

@@ -8,9 +8,10 @@ import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Interceptor
 import com.alibaba.android.arouter.facade.callback.InterceptorCallback
 import com.alibaba.android.arouter.facade.template.IInterceptor
+import com.alibaba.android.arouter.launcher.ARouter
 import java.lang.RuntimeException
 
-@Interceptor(name = RouterConstant.INTERCEPTOR_GLOBAL_PERMISSION, priority = 0)
+@Interceptor(name = RouterConstant.ROUTE_INTERCEPTOR_GLOBAL_PERMISSION, priority = 0)
 class PageInterceptor : IInterceptor {
 
     private lateinit var context: Context
@@ -24,7 +25,7 @@ class PageInterceptor : IInterceptor {
 
         if ((flag and RouterConstant.ROUTER_FLAG_LOGIN) != 0) {
             callback.onInterrupt(RuntimeException("need login"))
-            showToast("请先登录")
+            onLogin()
         } else if ((flag and RouterConstant.ROUTER_FLAG_AUTHENTICATION) != 0) {
             callback.onInterrupt(RuntimeException("need auth"))
             showToast("请先认证")
@@ -33,6 +34,12 @@ class PageInterceptor : IInterceptor {
             showToast("请先成为会员")
         } else {
             callback.onContinue(postcard)
+        }
+    }
+
+    private fun onLogin() {
+        Handler(Looper.getMainLooper()).post {
+            ARouter.getInstance().build(RouterConstant.ROUTE_ACTIVITY_LOGIN).navigation()
         }
     }
 

@@ -65,9 +65,12 @@ class LoginActivity : DiBaseActivity() {
         ApiFactory.create(AccountService::class.java).login(username, password)
             .enqueue(object : DiCallback<String> {
                 override fun onSuccess(response: DiResponse<String>) {
-                    val token = response.data ?: ""
-                    SPUtil.putString(AccountConstant.KEY_LOGIN_SUCCESS_TOKEN, token)
-                    onBackPressed()
+                    if (response.successful()) {
+                        val token = response.data ?: ""
+                        SPUtil.putString(AccountConstant.KEY_LOGIN_SUCCESS_TOKEN, token)
+                        onBackPressed()
+                    }
+
 
                     DiLog.d(TAG, "login response code: ${response.code} " +
                             "\t msg: ${response.msg} data: ${response.data}")
