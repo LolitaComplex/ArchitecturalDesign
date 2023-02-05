@@ -10,10 +10,12 @@ class TokenInterceptor : DiInterceptor {
 
         if (chain.response() == null) {
             val request = chain.request()
-            val token = SPUtil.getString(AccountConstant.KEY_LOGIN_SUCCESS_TOKEN)
-                ?: "MTU5Mjg1MDg3NDcwNw11.26=="
+            val sp = SPUtil.getString(AccountConstant.KEY_LOGIN_SUCCESS_TOKEN)
 
-            request.headers["auth-token"] = token
+            if (!sp.isNullOrEmpty()) {
+                request.headers["boarding-pass"] = sp
+            }
+            request.headers["auth-token"] = "MTU5Mjg1MDg3NDcwNw11.26=="
         }
         return false
     }

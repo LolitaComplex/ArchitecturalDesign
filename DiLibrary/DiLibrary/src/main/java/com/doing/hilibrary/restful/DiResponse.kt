@@ -15,8 +15,8 @@ class DiResponse<T> {
     var rawData: String = ""
     val stream: InputStream? = null
 
-    fun successful(): Boolean {
-        return code == SUCCESS
+    fun isSuccess(): Boolean {
+        return (code == SUCCESS) or (code == 0)
     }
 
 

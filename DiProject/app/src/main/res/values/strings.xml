@@ -62,4 +62,12 @@
     <string name="if_right_arrow">&#xe669;</string>
     <string name="if_alipay">&#xe674;</string>
     <string name="if_wxpay">&#xe62d;</string>
+
+    <string name="profile_login_desc_welcome_back">Hi，欢迎回来</string>
+    <string name="item_collection">&#xe604;   我的收藏</string>
+    <string name="item_notify">&#xe654;  课程通知</string>
+    <string name="item_history">&#xe606;   浏览历史</string>
+    <string name="item_playground">&#xe640;   playground</string>
+    <string name="item_address">&#xe603;   收货地址</string>
+
 </resources>

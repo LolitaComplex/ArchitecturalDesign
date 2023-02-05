@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.get
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.doing.diproject.R
@@ -65,7 +64,7 @@ class LoginActivity : DiBaseActivity() {
         ApiFactory.create(AccountService::class.java).login(username, password)
             .enqueue(object : DiCallback<String> {
                 override fun onSuccess(response: DiResponse<String>) {
-                    if (response.successful()) {
+                    if (response.isSuccess()) {
                         val token = response.data ?: ""
                         SPUtil.putString(AccountConstant.KEY_LOGIN_SUCCESS_TOKEN, token)
                         onBackPressed()

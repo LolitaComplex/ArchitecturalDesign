@@ -23,7 +23,7 @@ class DiRestful(private val baseUrl: String, callFactory: DiCall.Factory) {
 
                 private val methodService = ConcurrentHashMap<Method, MethodParser>()
 
-                override fun invoke(proxy: Any, method: Method, args: Array<out Any>): Any {
+                override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any {
                     var parser = methodService[method]
                     if (parser == null) {
                         parser = MethodParser(baseUrl, method)

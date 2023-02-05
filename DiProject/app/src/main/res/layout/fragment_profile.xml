@@ -1,16 +1,209 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:background="@color/color_white"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16">
+
+        <RelativeLayout
+            android:layout_height="70dp"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_width="match_parent">
+
+            <ImageView
+                android:id="@+id/profile_iv_avatar"
+                android:layout_height="70dp"
+                android:layout_width="70dp"
+                android:src="@drawable/ic_avatar_default"
+                tools:src="@drawable/ic_avatar_default" />
+
+
+            <TextView
+                android:ellipsize="end"
+                android:id="@+id/profile_tv_username"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_toEndOf="@id/profile_iv_avatar"
+                android:layout_width="wrap_content"
+                android:maxLength="10"
+                android:singleLine="true"
+                android:textColor="@color/color_000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="开源上神" />
+
+
+            <TextView
+                android:id="@+id/profile_tv_desc"
+                android:layout_below="@+id/user_name"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_toRightOf="@id/profile_iv_avatar"
+                android:layout_toEndOf="@id/profile_iv_avatar"
+                android:layout_width="wrap_content"
+                android:textColor="@color/color_999"
+                android:textSize="@dimen/sp_12"
+                tools:text="@string/profile_login_desc_welcome_back" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tab_item_collection"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:textColor="@color/color_333"
+                android:textSize="@dimen/sp_13"
+                tools:text="40\n收藏" />
+
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tab_item_history"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:textColor="@color/color_333"
+                android:textSize="@dimen/sp_13"
+                tools:text="40\n历史浏览" />
+
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tab_item_learn"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:textColor="@color/color_333"
+                android:textSize="@dimen/sp_13"
+                tools:text="40\n学习时长" />
+        </LinearLayout>
+
+
+        <com.doing.diui.banner.DiBanner
+            android:id="@+id/profile_banner"
+            android:layout_height="120dp"
+            android:layout_marginBottom="25dp"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:id="@+id/ll_notice"
+            android:layout_height="@dimen/dp_45"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <com.doing.diui.view.iconfont.IconFontTextView
+                android:gravity="center_vertical"
+                android:id="@+id/item_course"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:text="@string/item_notify"
+                android:textColor="@color/color_444"
+                android:textSize="@dimen/sp_14" />
+
+            <Space
+                android:layout_height="1px"
+                android:layout_weight="1"
+                android:layout_width="0dp" />
+
+            <TextView
+                android:background="@drawable/bg_red_circle"
+                android:gravity="center"
+                android:id="@+id/notify_count"
+                android:layout_height="@dimen/dp_16"
+                android:layout_width="@dimen/dp_16"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_10"
+                tools:text="10"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+        <View
+            android:background="@color/color_eee"
+            android:layout_height="1px"
+            android:layout_marginLeft="24dp"
+            android:layout_width="match_parent" />
+
+
+        <com.doing.diui.view.iconfont.IconFontTextView
+            android:gravity="center_vertical"
+            android:id="@+id/item_collection"
+            android:layout_height="@dimen/dp_45"
+            android:layout_width="wrap_content"
+            android:text="@string/item_collection"
+            android:textColor="@color/color_444"
+            android:textSize="@dimen/sp_14" />
+
+        <View
+            android:background="@color/color_eee"
+            android:layout_height="1px"
+            android:layout_marginLeft="24dp"
+            android:layout_width="match_parent" />
+
+
+        <com.doing.diui.view.iconfont.IconFontTextView
+            android:gravity="center_vertical"
+            android:id="@+id/item_adress"
+            android:layout_height="@dimen/dp_45"
+            android:layout_width="wrap_content"
+            android:text="@string/item_address"
+            android:textColor="@color/color_444"
+            android:textSize="@dimen/sp_14" />
+
+        <View
+            android:background="@color/color_eee"
+            android:layout_height="1px"
+            android:layout_marginLeft="24dp"
+            android:layout_width="match_parent" />
+
+
+        <com.doing.diui.view.iconfont.IconFontTextView
+            android:gravity="center_vertical"
+            android:id="@+id/item_history"
+            android:layout_height="@dimen/dp_45"
+            android:layout_width="wrap_content"
+            android:text="@string/item_history"
+            android:textColor="@color/color_444"
+            android:textSize="@dimen/sp_14" />
+
+        <View
+            android:background="@color/color_eee"
+            android:layout_height="1px"
+            android:layout_marginLeft="24dp"
+            android:layout_width="match_parent" />
+
+
+        <com.doing.diui.view.iconfont.IconFontTextView
+            android:gravity="center_vertical"
+            android:id="@+id/item_playground"
+            android:layout_height="@dimen/dp_45"
+            android:layout_width="wrap_content"
+            android:text="@string/item_playground"
+            android:textColor="@color/color_444"
+            android:textSize="@dimen/sp_14" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

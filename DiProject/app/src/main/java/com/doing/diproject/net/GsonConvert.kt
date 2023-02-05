@@ -19,7 +19,7 @@ class GsonConvert : DiConvert {
         response.code = jsonObj.optInt("code")
         val data = jsonObj.opt("data")
         if (data is JSONObject || data is JSONArray) {
-            if (response.successful()) {
+            if (response.isSuccess()) {
                 response.data = gson.fromJson(data.toString(), dataType)
             } else {
                 // 协议如果是错误，会返回一个JsonObject
