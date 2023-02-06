@@ -1,17 +1,13 @@
 package com.doing.diproject.common
 
-import android.app.Application
-import android.os.Build
 import com.alibaba.android.arouter.launcher.ARouter
-import com.doing.diproject.BuildConfig
-import com.doing.hilibrary.log.DiLogConfig
-import com.doing.hilibrary.log.DiLogManager
+import com.doing.dicommon.BuildConfig
+import com.doing.dicommon.DiBaseApplication
 
-open class DiBaseApplication : Application() {
+class DiAppApplication : DiBaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        DiLogManager.init(object : DiLogConfig() {})
 
         ARouter.init(this)
 

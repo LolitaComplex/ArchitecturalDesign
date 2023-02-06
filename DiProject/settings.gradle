@@ -20,3 +20,5 @@ project(':DiUi').projectDir = "../DiUi/DiUi" as File
 include ':DiLibrary'
 project(':DiLibrary').projectDir = "../DiLibrary/DiLibrary" as File
 
+include ':DiDebugTool'
+include ':DiCommon'

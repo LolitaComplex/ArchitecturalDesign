@@ -165,7 +165,7 @@ class InputItemLayout : LinearLayout {
         val array = context.obtainStyledAttributes(resId, R.styleable.titleTextAppearance)
         val titleColor = array.getColor(
             R.styleable.titleTextAppearance_titleColor,
-            resources.getColor(R.color.color_565)
+            ContextCompat.getColor(context, R.color.color_565)
         )
 
         //px

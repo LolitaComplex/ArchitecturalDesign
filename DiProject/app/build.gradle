@@ -60,6 +60,9 @@ dependencies {
 
     implementation project(':DiLibrary')
     implementation project(':DiUi')
+    implementation project(':DiCommon')
+
+    debugImplementation project(':DiDebugTool')
 
 
 }

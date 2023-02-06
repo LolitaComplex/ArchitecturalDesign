@@ -1,14 +1,13 @@
 package com.doing.diproject.home.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import androidx.fragment.app.DialogFragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.doing.diproject.R
 import com.doing.diproject.account.AccountConstant
-import com.doing.diproject.common.DiBaseFragment
-import com.doing.diproject.account.LoginActivity
+import com.doing.dicommon.DiBaseFragment
 
 class HomeFragment : DiBaseFragment() {
 
@@ -26,9 +25,12 @@ class HomeFragment : DiBaseFragment() {
 //                        DiLog.d("Doing", "${response.data?.toString()}")
 //                    }
 //                })
-            ARouter.getInstance()
-                .build(AccountConstant.ROUTE_ACTIVITY_LOGIN)
-                .navigation()
+//            ARouter.getInstance()
+//                .build(AccountConstant.ROUTE_ACTIVITY_LOGIN)
+//                .navigation()
+            val clazz = Class.forName("com.doing.didebugtool.DebugToolDialog")
+            val dialogFragment = clazz.getConstructor().newInstance() as DialogFragment
+            dialogFragment.show(childFragmentManager, "debug_tool")
         }
     }
 }

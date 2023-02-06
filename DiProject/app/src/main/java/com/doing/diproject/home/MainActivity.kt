@@ -1,9 +1,13 @@
 package com.doing.diproject.home
 
+import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
+import androidx.fragment.app.DialogFragment
 import com.doing.diproject.R
-import com.doing.diproject.common.ActivityProvider
-import com.doing.diproject.common.DiBaseActivity
+import com.doing.dicommon.ActivityProvider
+import com.doing.dicommon.DiBaseActivity
+import com.doing.diproject.BuildConfig
 import com.doing.diproject.home.logic.MainLogic
 
 class MainActivity : DiBaseActivity(), ActivityProvider {
@@ -23,5 +27,15 @@ class MainActivity : DiBaseActivity(), ActivityProvider {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         mMainLogic.onSaveInstanceState(outState)
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            if (BuildConfig.DEBUG) {
+
+            }
+        }
+
+        return super.onKeyDown(keyCode, event)
     }
 }

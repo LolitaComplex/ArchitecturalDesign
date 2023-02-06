@@ -1,17 +1,15 @@
 package com.doing.diproject.home.fragment
 
-import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.doing.diproject.R
-import com.doing.diproject.common.DiBaseFragment
+import com.doing.dicommon.DiBaseFragment
 import com.doing.diproject.home.model.Profile
 import com.doing.diproject.home.model.ProfilePresenter
 import com.doing.diui.banner.DiBanner
 import com.doing.diui.banner.core.DiBannerModel
-import com.doing.diui.banner.core.DiViewPagerAdapter
 import com.doing.diui.banner.core.DiViewPagerAdapter.DiViewPagerItemHolder
 import com.doing.diui.banner.core.DiViewPagerAdapter.IDiBannerBindAdapter
 import com.doing.diui.view.iconfont.IconFontTextView
@@ -33,31 +31,31 @@ class ProfileFragment : DiBaseFragment() {
         return R.layout.fragment_profile
     }
 
-    override fun initView(parent: View) {
-        parent.findViewById<IconFontTextView>(R.id.item_course).apply {
+    override fun initView(view: View) {
+        view.findViewById<IconFontTextView>(R.id.item_course).apply {
             this.text = getString(R.string.if_notify)
             this.append("${ITEM_SPACE}课程公告")
         }
 
-        parent.findViewById<IconFontTextView>(R.id.item_adress).apply {
+        view.findViewById<IconFontTextView>(R.id.item_adress).apply {
             this.text = getString(R.string.if_address)
             this.append("${ITEM_SPACE}我的收藏")
         }
 
-        parent.findViewById<IconFontTextView>(R.id.item_collection).apply {
+        view.findViewById<IconFontTextView>(R.id.item_collection).apply {
             this.text = getString(R.string.if_collection)
             this.append("${ITEM_SPACE}收货地址")
         }
 
-        parent.findViewById<IconFontTextView>(R.id.item_history).apply {
+        view.findViewById<IconFontTextView>(R.id.item_history).apply {
             this.text = getString(R.string.if_history)
             this.append("${ITEM_SPACE}浏览历史")
         }
 
-        mIvAvatar = parent.findViewById(R.id.profile_iv_avatar)
-        mTvDesc = parent.findViewById(R.id.profile_tv_desc)
-        mTvUserName = parent.findViewById(R.id.profile_tv_username)
-        mBanner = parent.findViewById<DiBanner<DiBannerModel>>(R.id.profile_banner)
+        mIvAvatar = view.findViewById(R.id.profile_iv_avatar)
+        mTvDesc = view.findViewById(R.id.profile_tv_desc)
+        mTvUserName = view.findViewById(R.id.profile_tv_username)
+        mBanner = view.findViewById<DiBanner<DiBannerModel>>(R.id.profile_banner)
 
         mPresenter.requestProfile()
     }

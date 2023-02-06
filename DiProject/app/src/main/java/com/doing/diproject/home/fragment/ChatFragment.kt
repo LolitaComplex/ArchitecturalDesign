@@ -1,7 +1,7 @@
 package com.doing.diproject.home.fragment
 
 import com.doing.diproject.R
-import com.doing.diproject.common.DiBaseFragment
+import com.doing.dicommon.DiBaseFragment
 
 class ChatFragment : DiBaseFragment() {
 

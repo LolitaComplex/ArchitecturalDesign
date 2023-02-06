@@ -1,4 +1,4 @@
-package com.doing.diproject.common
+package com.doing.dicommon
 
 class AppApplication : DiBaseApplication() {
 }
