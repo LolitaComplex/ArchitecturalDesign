@@ -5,18 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class DiHolderItem<DATA, Holder : RecyclerView.ViewHolder>(private val data: DATA ) {
+abstract class DiHolderItem<DATA, Holder : RecyclerView.ViewHolder>(private val data: DATA) {
 
     private lateinit var mAdapter: DiAdapter
 
     abstract fun onBindView(holder: RecyclerView.ViewHolder, position: Int)
 
-    open fun layoutId(): Int {
+    open fun getLayoutId(): Int {
         return -1
     }
 
     open fun getLayoutView(container: ViewGroup): View {
-        val layoutId = layoutId()
+        val layoutId = getLayoutId()
         if (layoutId != -1) {
             return LayoutInflater.from(container.context).inflate(
                 layoutId, container, false)
@@ -36,7 +36,11 @@ abstract class DiHolderItem<DATA, Holder : RecyclerView.ViewHolder>(private val 
         this.mAdapter = adapter
     }
 
-    fun getSpanCount(): Int {
+    open fun getSpanCount(): Int {
+        return 0
+    }
+
+    open fun getSpanSize(): Int {
         return 0
     }
 }

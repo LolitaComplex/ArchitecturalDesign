@@ -26,6 +26,8 @@ class GsonConvert : DiConvert {
                 val type = object : TypeToken<MutableMap<String, String>>() {}.type
                 response.errorData = gson.fromJson(data.toString(), type)
             }
+        } else {
+            response.data = data as T
         }
         response.rawData = json
 

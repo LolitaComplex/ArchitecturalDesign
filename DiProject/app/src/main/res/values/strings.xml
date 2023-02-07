@@ -70,4 +70,8 @@
     <string name="item_playground">&#xe640;   playground</string>
     <string name="item_address">&#xe603;   收货地址</string>
 
+    <string name="profile_tab_item_collection">\n收藏</string>
+    <string name="profile_tab_item_history">\n历史浏览</string>
+    <string name="profile_tab_item_learn">\n学习时长</string>
+
 </resources>

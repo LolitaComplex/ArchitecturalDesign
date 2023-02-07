@@ -6,6 +6,7 @@ public class Profile {
     public boolean isLogin;
     public int favoriteCount;
     public int browseCount;
+    public int learnMinutes;
     public List<BannerNoticeListDTO> bannerNoticeList;
     public String userName;
     public String userIcon;

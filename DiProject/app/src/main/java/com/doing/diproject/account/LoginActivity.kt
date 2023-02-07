@@ -67,6 +67,7 @@ class LoginActivity : DiBaseActivity() {
                     if (response.isSuccess()) {
                         val token = response.data ?: ""
                         SPUtil.putString(AccountConstant.KEY_LOGIN_SUCCESS_TOKEN, token)
+                        setResult(Activity.RESULT_OK)
                         onBackPressed()
                     }
 

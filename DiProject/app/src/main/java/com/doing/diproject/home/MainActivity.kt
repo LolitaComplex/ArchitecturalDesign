@@ -1,5 +1,6 @@
 package com.doing.diproject.home
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
@@ -37,5 +38,12 @@ class MainActivity : DiBaseActivity(), ActivityProvider {
         }
 
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        supportFragmentManager.fragments.forEach { fragment ->
+            fragment.onActivityResult(resultCode, resultCode, data)
+        }
     }
 }

@@ -8,4 +8,6 @@ interface ProfileService {
     @Get("user/profile")
     fun profile(): DiCall<Profile>
 
+    @Get("notice")
+    fun notice(): DiCall<CourseNotice>
 }
