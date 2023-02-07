@@ -4,7 +4,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import com.doing.diproject.R
-import com.doing.dicommon.ActivityProvider
+import com.doing.dicommon.component.ActivityProvider
 import com.doing.diproject.home.fragment.*
 import com.doing.diproject.home.tab.DiTabFragmentAdapter
 import com.doing.diproject.home.tab.DiTabFragmentView

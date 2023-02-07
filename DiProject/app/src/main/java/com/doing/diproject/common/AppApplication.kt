@@ -2,9 +2,9 @@ package com.doing.diproject.common
 
 import com.alibaba.android.arouter.launcher.ARouter
 import com.doing.dicommon.BuildConfig
-import com.doing.dicommon.DiBaseApplication
+import com.doing.dicommon.component.DiBaseApplication
 
-class DiAppApplication : DiBaseApplication() {
+class AppApplication : DiBaseApplication() {
 
     override fun onCreate() {
         super.onCreate()

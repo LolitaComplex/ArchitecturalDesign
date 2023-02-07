@@ -3,11 +3,10 @@ package com.doing.diproject.home.fragment
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import androidx.fragment.app.DialogFragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.doing.diproject.R
 import com.doing.diproject.account.AccountConstant
-import com.doing.dicommon.DiBaseFragment
+import com.doing.dicommon.component.DiBaseFragment
 
 class HomeFragment : DiBaseFragment() {
 

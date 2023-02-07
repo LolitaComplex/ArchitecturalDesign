@@ -9,7 +9,7 @@ import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.doing.diproject.R
-import com.doing.dicommon.DiBaseActivity
+import com.doing.dicommon.component.DiBaseActivity
 import com.doing.diproject.net.ApiFactory
 import com.doing.diui.view.input.InputItemLayout
 import com.doing.hilibrary.log.DiLog

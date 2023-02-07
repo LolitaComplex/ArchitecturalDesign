@@ -1,13 +1,11 @@
 package com.doing.diproject.home
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
-import androidx.fragment.app.DialogFragment
 import com.doing.diproject.R
-import com.doing.dicommon.ActivityProvider
-import com.doing.dicommon.DiBaseActivity
+import com.doing.dicommon.component.ActivityProvider
+import com.doing.dicommon.component.DiBaseActivity
 import com.doing.diproject.BuildConfig
 import com.doing.diproject.home.logic.MainLogic
 

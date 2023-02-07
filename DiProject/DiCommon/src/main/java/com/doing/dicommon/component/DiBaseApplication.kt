@@ -1,6 +1,7 @@
-package com.doing.dicommon
+package com.doing.dicommon.component
 
 import android.app.Application
+import com.doing.dicommon.AppGlobal
 import com.doing.hilibrary.log.DiLogConfig
 import com.doing.hilibrary.log.DiLogManager
 

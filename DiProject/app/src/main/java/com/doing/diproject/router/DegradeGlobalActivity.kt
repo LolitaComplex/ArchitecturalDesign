@@ -8,7 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.doing.diproject.R
-import com.doing.dicommon.DiBaseActivity
+import com.doing.dicommon.component.DiBaseActivity
 import com.doing.diui.view.error.EmptyView
 
 

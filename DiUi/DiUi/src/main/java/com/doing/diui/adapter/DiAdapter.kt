@@ -1,5 +1,6 @@
 package com.doing.diui.adapter
 
+import android.annotation.SuppressLint
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
@@ -245,6 +246,12 @@ class DiAdapter : RecyclerView.Adapter<ViewHolder>() {
         if (index >= 0) {
             notifyItemChanged(index + headers.size())
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun clearItems() {
+        dataList.clear()
+        notifyDataSetChanged()
     }
 
 }

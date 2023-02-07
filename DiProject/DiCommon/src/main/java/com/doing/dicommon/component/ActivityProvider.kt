@@ -1,4 +1,4 @@
-package com.doing.dicommon
+package com.doing.dicommon.component
 
 import android.content.res.Resources
 import android.view.View

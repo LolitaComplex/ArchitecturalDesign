@@ -1,4 +1,4 @@
-package com.doing.dicommon
+package com.doing.dicommon.component
 
 import android.os.Bundle
 import android.view.LayoutInflater

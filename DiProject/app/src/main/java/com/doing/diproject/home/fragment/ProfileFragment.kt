@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.doing.diproject.R
-import com.doing.dicommon.DiBaseFragment
+import com.doing.dicommon.component.DiBaseFragment
 import com.doing.diproject.home.model.Profile
 import com.doing.diproject.home.model.ProfilePresenter
 import com.doing.diproject.router.RouterConstant
