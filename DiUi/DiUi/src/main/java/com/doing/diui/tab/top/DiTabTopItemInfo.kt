@@ -12,16 +12,12 @@ class DiTabTopItemInfo {
     }
 
     val tabType: TabType
-    val fragment: Class<out Fragment>
 
-    constructor(fragment: Class<out Fragment>, defaultBitmap: Bitmap, selectedBitmap: Bitmap) {
-        this.fragment = fragment
+    constructor(defaultBitmap: Bitmap, selectedBitmap: Bitmap) {
         this.tabType = TabType.Image(defaultBitmap, selectedBitmap)
     }
 
-    constructor(fragment: Class<out Fragment>, name: String,
-                @ColorInt defaultColor: Int, @ColorInt tintColor: Int) {
-        this.fragment = fragment
+    constructor(name: String, @ColorInt defaultColor: Int, @ColorInt tintColor: Int) {
         this.tabType = TabType.Text(name, defaultColor, tintColor)
     }
 }

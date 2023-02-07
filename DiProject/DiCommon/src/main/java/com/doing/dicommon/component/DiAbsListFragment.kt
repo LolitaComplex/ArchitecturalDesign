@@ -16,7 +16,7 @@ import com.doing.diui.refresh.view.DiRefreshView
 import com.doing.diui.view.error.EmptyView
 import kotlinx.android.synthetic.main.fragment_abs_list.*
 
-class DiAbsListFragment : DiBaseFragment(), IDiRefresh.OnRefreshListener {
+open class DiAbsListFragment : DiBaseFragment(), IDiRefresh.OnRefreshListener {
 
     private var pageIndex: Int = 1
     private lateinit var mRecyclerView: DiRecyclerView

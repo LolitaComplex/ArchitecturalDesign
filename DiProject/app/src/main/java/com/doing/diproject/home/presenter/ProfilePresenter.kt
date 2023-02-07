@@ -1,6 +1,8 @@
-package com.doing.diproject.home.model
+package com.doing.diproject.home.presenter
 
 import com.doing.diproject.home.fragment.ProfileFragment
+import com.doing.diproject.home.model.Profile
+import com.doing.diproject.home.service.ProfileService
 import com.doing.diproject.net.ApiFactory
 import com.doing.hilibrary.restful.DiCallback
 import com.doing.hilibrary.restful.DiHttpException

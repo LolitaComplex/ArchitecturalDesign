@@ -3,6 +3,7 @@ package com.doing.diproject.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
+import androidx.fragment.app.DialogFragment
 import com.doing.diproject.R
 import com.doing.dicommon.component.ActivityProvider
 import com.doing.dicommon.component.DiBaseActivity
@@ -31,7 +32,9 @@ class MainActivity : DiBaseActivity(), ActivityProvider {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
             if (BuildConfig.DEBUG) {
-
+                val clazz = Class.forName("com.doing.didebugtool.DebugToolDialog")
+                val dialogFragment = clazz.getConstructor().newInstance() as DialogFragment
+                dialogFragment.show(supportFragmentManager, "debug_tool")
             }
         }
 

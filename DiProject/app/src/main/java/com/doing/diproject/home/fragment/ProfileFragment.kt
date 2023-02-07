@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide
 import com.doing.diproject.R
 import com.doing.dicommon.component.DiBaseFragment
 import com.doing.diproject.home.model.Profile
-import com.doing.diproject.home.model.ProfilePresenter
+import com.doing.diproject.home.presenter.ProfilePresenter
 import com.doing.diproject.router.RouterConstant
 import com.doing.diui.banner.DiBanner
 import com.doing.diui.banner.core.DiBannerModel
