@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import com.doing.diui.page.*
+import com.doing.diui.page.adapter.AdapterActivity
 import com.doing.diui.page.navigation.NavigationActivity
 import com.doing.hilibrary.global.DiActivityManager
+import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity(), (Boolean) -> Unit {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +42,10 @@ class MainActivity : AppCompatActivity(), (Boolean) -> Unit {
         }
 
         DiActivityManager.instance.registerOnBackgroundChangeListener(this)
+
+        MainActivity_btn_adapter.setOnClickListener {
+            startActivity(Intent(this, AdapterActivity::class.java))
+        }
     }
 
     override fun onDestroy() {

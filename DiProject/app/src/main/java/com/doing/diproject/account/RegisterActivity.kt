@@ -54,6 +54,7 @@ class RegisterActivity : AppCompatActivity() {
         mEtPassword = findViewById<InputItemLayout>(R.id.RegisterActivity_input_password)
         mEtPasswordConfirm = findViewById<InputItemLayout>(
             R.id.RegisterActivity_input_password_confirm)
+
     }
 
     private fun onRegister() {

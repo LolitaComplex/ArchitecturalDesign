@@ -17,6 +17,9 @@
         android:theme="@style/Theme.DiUi"
         tools:targetApi="31">
         <activity
+            android:name=".page.adapter.AdapterActivity"
+            android:exported="false" />
+        <activity
             android:name=".page.navigation.NavigationActivity"
             android:exported="false"
             android:label="@string/title_activity_navigation" />

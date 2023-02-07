@@ -25,12 +25,12 @@ class HomeFragment : DiBaseFragment() {
 //                        DiLog.d("Doing", "${response.data?.toString()}")
 //                    }
 //                })
-//            ARouter.getInstance()
-//                .build(AccountConstant.ROUTE_ACTIVITY_LOGIN)
-//                .navigation()
-            val clazz = Class.forName("com.doing.didebugtool.DebugToolDialog")
-            val dialogFragment = clazz.getConstructor().newInstance() as DialogFragment
-            dialogFragment.show(childFragmentManager, "debug_tool")
+            ARouter.getInstance()
+                .build(AccountConstant.ROUTE_ACTIVITY_LOGIN)
+                .navigation()
+//            val clazz = Class.forName("com.doing.didebugtool.DebugToolDialog")
+//            val dialogFragment = clazz.getConstructor().newInstance() as DialogFragment
+//            dialogFragment.show(childFragmentManager, "debug_tool")
         }
     }
 }

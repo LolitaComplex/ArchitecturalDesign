@@ -3,9 +3,16 @@ package com.doing.hilibrary.global
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.Transformations
 import java.lang.ref.WeakReference
 
-class DiActivityManager private constructor(){
+class DiActivityManager private constructor() : LifecycleOwner {
+
+    private val mLifecycleRegistry = LifecycleRegistry(this)
+
 
     companion object {
         val instance by lazy(LazyThreadSafetyMode.PUBLICATION) { DiActivityManager() }
@@ -80,5 +87,9 @@ class DiActivityManager private constructor(){
         onBackgroundCallbacks.forEach { callback ->
             callback.invoke(!isFront)
         }
+    }
+
+    override fun getLifecycle(): Lifecycle {
+        return mLifecycleRegistry
     }
 }

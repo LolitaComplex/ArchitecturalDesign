@@ -52,10 +52,7 @@ object SPUtil {
 
 
     private fun getShared(): SharedPreferences? {
-        val application: Application? = AppGlobals.get()
-        if (application != null) {
-            return application.getSharedPreferences(CACHE_FILE, Context.MODE_PRIVATE)
-        }
-        return null
+        val application: Application = AppGlobals.get()
+        return application.getSharedPreferences(CACHE_FILE, Context.MODE_PRIVATE)
     }
 }
