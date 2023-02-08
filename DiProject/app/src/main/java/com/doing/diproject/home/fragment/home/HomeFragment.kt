@@ -1,4 +1,4 @@
-package com.doing.diproject.home.fragment
+package com.doing.diproject.home.fragment.home
 
 import android.util.SparseArray
 import android.view.View
@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager
 import com.doing.dicommon.component.DiBaseFragment
 import com.doing.diproject.R
 import com.doing.diproject.home.model.Category
+import com.doing.diproject.home.presenter.HomePresenter
 import com.doing.diui.tab.common.IDiTabLayout
 import com.doing.diui.tab.top.DiTabTopItemInfo
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -18,15 +19,17 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : DiBaseFragment() {
 
     private var mTabPreSelectIndex = 0
+    private val mPresenter by lazy { HomePresenter() }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home
     }
 
     override fun initView(view: View) {
+        mPresenter.requestCategory(this)
     }
 
-    fun onCategoryResponse(list: List<Category>) {
+    fun onCategorySuccess(list: List<Category>) {
         val context = requireContext()
         val tabInfoList = mutableListOf<DiTabTopItemInfo>()
         list.forEach { item ->

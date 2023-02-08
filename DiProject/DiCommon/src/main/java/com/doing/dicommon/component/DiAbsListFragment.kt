@@ -30,7 +30,6 @@ open class DiAbsListFragment : DiBaseFragment(), IDiRefresh.OnRefreshListener {
         const val PREFETCH_SIZE = 5
     }
 
-
     override fun getLayoutId(): Int {
         return R.layout.fragment_abs_list
     }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.doing.diproject.R
 import com.doing.dicommon.component.ActivityProvider
 import com.doing.diproject.home.fragment.*
+import com.doing.diproject.home.fragment.home.HomeFragment
 import com.doing.diproject.home.tab.DiTabFragmentAdapter
 import com.doing.diproject.home.tab.DiTabFragmentView
 import com.doing.diui.tab.bottom.DiTabBottomInfo

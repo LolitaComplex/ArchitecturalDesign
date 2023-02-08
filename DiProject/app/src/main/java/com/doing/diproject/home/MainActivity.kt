@@ -1,6 +1,7 @@
 package com.doing.diproject.home
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.fragment.app.DialogFragment
@@ -9,6 +10,7 @@ import com.doing.dicommon.component.ActivityProvider
 import com.doing.dicommon.component.DiBaseActivity
 import com.doing.diproject.BuildConfig
 import com.doing.diproject.home.logic.MainLogic
+import com.doing.diui.common.DiStatusBar
 
 class MainActivity : DiBaseActivity(), ActivityProvider {
 
@@ -22,6 +24,8 @@ class MainActivity : DiBaseActivity(), ActivityProvider {
         mainLogic.initLogic(savedInstanceState)
         mMainLogic = mainLogic
 
+
+        DiStatusBar.setStatusBar(this, true, Color.WHITE, false)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

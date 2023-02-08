@@ -36,6 +36,10 @@ abstract class DiHolderItem<DATA, Holder : RecyclerView.ViewHolder>(private val 
         this.mAdapter = adapter
     }
 
+    fun getAdapter(): DiAdapter {
+        return mAdapter
+    }
+
     open fun getSpanCount(): Int {
         return 0
     }

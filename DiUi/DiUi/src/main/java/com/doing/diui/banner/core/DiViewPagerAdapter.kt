@@ -119,7 +119,9 @@ class DiViewPagerAdapter<E : DiBannerModel> : PagerAdapter() {
         val realPosition = getRealPosition(position)
         val holder = mCacheHolders[realPosition]
 
-        container.removeView(holder.itemView)
+        if (holder.isInit) {
+            container.removeView(holder.itemView)
+        }
 //        mCacheHolders[realPosition] = DiViewPagerItemHolder()
     }
 
