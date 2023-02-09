@@ -38,6 +38,7 @@ class BannerHolderItem(private val bannerList: List<HomeList.BannerList>)
 
         val count = banner.childCount
         for (i in count - 1 .. 0) {
+            banner.setAutoPlay(false)
             banner.removeView(banner.getChildAt(i))
         }
 

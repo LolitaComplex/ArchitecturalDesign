@@ -35,7 +35,7 @@ class DiTabTopActivity : AppCompatActivity() {
         val tintColor = ContextCompat.getColor(this, R.color.tabBottomTintColor)
         val topInfoList = mutableListOf<DiTabTopItemInfo>()
         tabsStr.forEach { tab ->
-            topInfoList += DiTabTopItemInfo(DemoFragment::class.java, tab, defaultColor, tintColor)
+            topInfoList += DiTabTopItemInfo(tab, defaultColor, tintColor)
         }
         tabTopView.inflateInfo(topInfoList)
         tabTopView.select(topInfoList[0])

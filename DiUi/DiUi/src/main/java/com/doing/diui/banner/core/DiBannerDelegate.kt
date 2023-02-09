@@ -69,6 +69,8 @@ class DiBannerDelegate<E : DiBannerModel>(private val banner: DiBanner<E>) : IDi
 
     override fun setAutoPlay(autoPlay: Boolean) {
         this.mIsAutoPlay = autoPlay
+        val pager = mViewPager
+        pager.setAutoPlay(autoPlay)
     }
 
     override fun setLoop(loop: Boolean) {

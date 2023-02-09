@@ -5,6 +5,7 @@ object RouterConstant {
     const val ROUTE_INTERCEPTOR_GLOBAL_PERMISSION = "/interceptor/global"
     const val ROUTE_ACTIVITY_ROUTER_SERVICE = "/activity/default"
     const val ROUTE_ACTIVITY_ROUTER_ERROR = "/activity/error"
+    const val ROUTE_ACTIVITY_DETAIL_MAIN = "/activity/detail/main"
 
     const val ROUTE_ACTIVITY_LOGIN = "/activity/login"
     const val ROUTE_ACTIVITY_REGISTER = "/activity/register"
