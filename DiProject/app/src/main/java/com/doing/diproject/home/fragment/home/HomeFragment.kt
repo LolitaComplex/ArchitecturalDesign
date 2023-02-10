@@ -80,6 +80,11 @@ class HomeFragment : DiBaseFragment() {
             }
             return fragment
         }
+
+        override fun getItemPosition(`object`: Any): Int {
+            return super.getItemPosition(`object`)
+        }
+
     }
 
 }
