@@ -23,18 +23,22 @@ class LifecycleActivity : AppCompatActivity() {
         DiLog.w(TAG, "LifecycleActivity onCreate")
 
         val liveData = MutableLiveData<String>()
-        liveData.postValue("")
+//        liveData.postValue("")
 
-        liveData.observe(this, object : Observer<String> {
-            override fun onChanged(t: String) {
-                DiLog.d(TAG, "onChange: $t")
-            }
-        })
+//        liveData.observe(this, object : Observer<String> {
+//            override fun onChanged(t: String) {
+//                DiLog.d(TAG, "onChange: $t")
+//            }
+//        })
 
-        DiDataBus.with<String>("hello_live_bus").observe(this)
-            {data ->
-            Toast.makeText(this, "Lifecycle$data", Toast.LENGTH_SHORT).show()
-        }
+//        DiDataBus.with<String>("hello_live_bus").observeSticky(this, true)
+//            {data ->
+//            Toast.makeText(this, "Lifecycle$data", Toast.LENGTH_SHORT).show()
+//        }
+
+        window.decorView.postDelayed({
+            DiDataBus.with<String>("live_data_bus").postStickData("测试LiveData生命周期")
+        }, 1000)
     }
 
     override fun onStart() {

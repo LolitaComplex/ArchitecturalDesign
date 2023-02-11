@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
-      <module name="DiPlayGround.app" target="1.8" />
-      <module name="DiPlayGround.KotlinCoroutines" target="1.8" />
+      <module name="DiPlayGround.app" target="16" />
+      <module name="DiPlayGround.KotlinCoroutines" target="16" />
     </bytecodeTargetLevel>
   </component>
 </project>

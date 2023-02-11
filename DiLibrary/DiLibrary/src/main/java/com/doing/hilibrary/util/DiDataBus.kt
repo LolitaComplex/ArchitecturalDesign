@@ -30,6 +30,7 @@ object DiDataBus {
         }
 
         override fun setValue(value: T) {
+            mVersion++
             super.setValue(value)
         }
 

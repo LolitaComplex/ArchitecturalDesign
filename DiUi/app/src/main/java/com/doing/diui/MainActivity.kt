@@ -53,6 +53,9 @@ class MainActivity : AppCompatActivity(), (Boolean) -> Unit {
             startActivity(Intent(this, LifecycleActivity::class.java))
         }
         DiDataBus.with<String>("hello_live_bus").postStickData("这是发送的第一个消息")
+        DiDataBus.with<String>("live_data_bus").observe(this) {data ->
+            Toast.makeText(this, "LiveData: $data", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroy() {
