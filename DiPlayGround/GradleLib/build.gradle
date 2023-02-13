@@ -1,0 +1,117 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 32
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    productFlavors {
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    implementation 'com.android.tools.build:gradle:7.0.2'
+}
+
+//new Throwable().printStackTrace()
+println(this.getClass())
+println owner.getClass()
+//println(this.getClass().getSuperclass())
+//
+//ProjectInternal projectInternal = getProject()
+//def target = new ProjectScriptTarget(getProject())
+//ProjectScript projectScript = this
+//def property = this.getProperty("android.nonTransitiveRClass")
+//println("Property: $property")
+
+// gradle "-Dorg.gradle.daemon=false" "-Dorg.gradle.debug=true" tasks
+
+class MyTask extends DefaultTask {
+
+//    @Input
+//    @Option
+//    String from = ""
+//
+//    @OutputFile
+//    @Option
+//    File out = new File("test.txt")
+
+    MyTask() {
+        outputs.upToDateWhen { false }
+    }
+
+    @TaskAction
+    void fun() {
+        println "test ..."
+
+        def inputFile = inputs.files.singleFile
+        def outputFile = outputs.files.singleFile
+        if (!outputFile.exists()) {
+            outputFile.createNewFile()
+        }
+
+        outputFile.text = inputFile.text
+    }
+}
+
+task testTask(type: MyTask) {
+
+//    from = "xxx/xxx"
+//    out = new File("NewFile.txt")
+    inputs.file file("build.gradle")
+    outputs.file file("target.log")
+}
+
+task zip(type: Zip) {
+    archiveName "output.zip"
+    destinationDir file("../app/build/temp")
+    from "${buildDir.absolutePath}"
+}
+
+gradle.projectsEvaluated {
+    def mainProject = getRootProject().findProject("app")
+    def packDebugTask = mainProject.getTasks().getByName("packageDebug")
+    println packDebugTask
+
+    task fillPack(type: Zip) {
+        archiveName "output3.zip"
+        destinationDir file("${mainProject.buildDir}/temp")
+        from packDebugTask.outputs.files
+    }
+}
+
+
+
+
