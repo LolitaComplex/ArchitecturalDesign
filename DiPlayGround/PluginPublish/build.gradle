@@ -1,0 +1,34 @@
+plugins {
+    id 'groovy'
+    id 'maven-publish'
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+}
+
+
+afterEvaluate {
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                artifactId = 'PublishPlugin'
+                groupId = 'com.doing.plugin'
+                version = '0.0.1'
+                from components.java
+            }
+        }
+
+        repositories {
+            maven {
+//                url = layout.buildDirectory.dir('repo')
+                url "${projectDir}/repo"
+            }
+        }
+    }
+}

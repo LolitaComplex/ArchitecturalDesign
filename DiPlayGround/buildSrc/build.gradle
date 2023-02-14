@@ -1,0 +1,27 @@
+plugins {
+    id 'groovy'
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+}
+
+
+//publishing {
+//    publications {
+//        maven(MavenPublication) {
+//            artifactId = 'PublishPlugin'
+//            groupId = 'com.doing.plugin'
+//            version = '0.0.1'
+//            from components.java
+//        }
+//    }
+//
+//    repositories {
+//        maven {
+////                url = layout.buildDirectory.dir('repo')
+//            url "${projectDir}/repo"
+//        }
+//    }
+//}
