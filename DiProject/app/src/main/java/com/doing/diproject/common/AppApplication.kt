@@ -31,7 +31,6 @@ class AppApplication : DiBaseApplication(), ViewModelStoreOwner {
             ARouter.openLog()
             ARouter.openDebug()
         }
-        mViewModelStore.
     }
 
 

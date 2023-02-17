@@ -4,10 +4,12 @@ import android.graphics.Color
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.doing.diproject.R
+import com.doing.diproject.home.MainActivity
 import com.doing.diproject.home.model.HomeList
 import com.doing.diui.adapter.DiHolderItem
 import com.doing.diui.adapter.DiViewHolder
@@ -36,6 +38,20 @@ class BannerHolderItem(private val bannerList: List<HomeList.BannerList>)
     override fun onBindView(holder: RecyclerView.ViewHolder, position: Int) {
         val banner = holder.itemView as DiBanner<DiBannerModel>
 
+        val time = System.currentTimeMillis() - MainActivity.start
+        DiLog.d(MainActivity.TAG, "addOnPreDrawListener bind data: ${time}ms")
+
+        holder.itemView.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+
+            override fun onPreDraw(): Boolean {
+                val timeInner = System.currentTimeMillis() - MainActivity.start
+                DiLog.d(MainActivity.TAG, "addOnPreDrawListener: ${timeInner}ms")
+                holder.itemView.viewTreeObserver.removeOnPreDrawListener(this)
+                return false
+            }
+        })
+
         val count = banner.childCount
         for (i in count - 1 .. 0) {
             banner.setAutoPlay(false)
@@ -62,7 +78,5 @@ class BannerHolderItem(private val bannerList: List<HomeList.BannerList>)
         }
         banner.setBannerData(R.layout.layout_profile_banner_item, list)
         isBind = true
-
     }
-
 }

@@ -11,12 +11,21 @@ import com.doing.dicommon.component.DiBaseActivity
 import com.doing.diproject.BuildConfig
 import com.doing.diproject.home.logic.MainLogic
 import com.doing.diui.common.DiStatusBar
+import com.doing.hilibrary.log.DiLog
 
 class MainActivity : DiBaseActivity(), ActivityProvider {
+
+    companion object {
+        const val TAG = "MainActivityDraw"
+        val start by lazy {
+            System.currentTimeMillis()
+        }
+    }
 
     private lateinit var mMainLogic: MainLogic
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        DiLog.d(TAG, "onCreate: 0ms start: $start")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -26,6 +35,19 @@ class MainActivity : DiBaseActivity(), ActivityProvider {
 
 
         DiStatusBar.setStatusBar(this, true, Color.WHITE, false)
+        val time = System.currentTimeMillis() - start
+        DiLog.d(TAG, "onCreate end: ${time}ms")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val time = System.currentTimeMillis() - start
+        DiLog.d(TAG, "onResume end: ${time}ms")
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        val time = System.currentTimeMillis() - start
+        DiLog.d(TAG, "onWindowFocusChange: ${time}ms")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

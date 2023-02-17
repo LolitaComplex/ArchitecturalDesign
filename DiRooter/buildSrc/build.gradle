@@ -1,0 +1,20 @@
+plugins {
+    id 'groovy'
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+
+    implementation 'com.android.tools.build:gradle:7.2.0'
+    implementation 'org.apache.commons:commons-io:1.3.2'
+    implementation 'commons-codec:commons-codec:1.15'
+    implementation 'org.javassist:javassist:3.27.0-GA'
+
+    implementation files("${System.properties['java.home']}/../../../Environment/Java/Java8/lib/tools.jar")
+}

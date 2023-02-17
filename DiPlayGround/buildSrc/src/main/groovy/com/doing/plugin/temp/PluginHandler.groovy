@@ -31,7 +31,7 @@ class PluginHandler implements ProjectEvaluationListener {
         target.apply plugin: 'maven-publish'
 
 
-        AndroidExtension androidExtension = target.extensions.android
+//        AndroidExtension androidExtension = target.extensions.android
 
 //        println("${TempPublishPlugin.TAG} Configurations Compile: ${target.configurations.getByName("compile")}")
 //        println("${TempPublishPlugin.TAG} Configurations API: ${target.configurations.getByName("api")}")
@@ -53,12 +53,13 @@ class PluginHandler implements ProjectEvaluationListener {
                 publication.artifactId = 'TestPublish'
                 publication.groupId = 'com.doing.plugin.test'
                 publication.version = '0.0.1'
-                publication.artifact("jarPath") { MavenArtifact artifact ->
+                publication.artifact("") { MavenArtifact artifact ->
                     artifact.setClassifier("interface")
                 }
                 // 3. project.extensions.getByType(LibraryExtension.class) 怎么就知道Android下有个Extension了
                 publication.artifact("aarPath")
                 // 4. publication 相关API哪里去查
+                // CompileOnly runtimeOnly
                 publication.pom.withXml { XmlProvider provider ->
                     Map map = [compile: "compile", api: "compile",
                             implementation: "runtime", runtimeOnly: "runtime"]
@@ -100,14 +101,15 @@ class PluginHandler implements ProjectEvaluationListener {
 
             }
         }
-
+//
         project.tasks['publish'].mustRunAfter(project.tasks['clean'])
-        // 11. PublishToMavenRepository这个类哪来的
+//        // 11. PublishToMavenRepository这个类哪来的
         project.tasks.withType(PublishToMavenRepository.class) { Task task ->
             task.setGroup('ikCompile')
             // 12. dependsOn 3参数用途是啥
             task.dependsOn('assembleRelease', TASK_MAKE_DOC, TASK_ASSEMBLE_JAR)
         }
+
         project.tasks['publishToMavenLocal'].mustRunAfter(project.tasks['clean'])
         // 13. PublishToMavenRepository这个类哪来的
         project.tasks.withType(PublishToMavenLocal.class) { Task task ->

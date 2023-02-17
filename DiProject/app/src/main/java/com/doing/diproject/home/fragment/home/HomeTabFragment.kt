@@ -2,6 +2,7 @@ package com.doing.diproject.home.fragment.home
 
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.doing.dicommon.component.DiAbsListFragment
 import com.doing.diproject.home.model.HomeList
@@ -33,6 +34,8 @@ class HomeTabFragment : DiAbsListFragment() {
     }
 
     fun onHomeListSuccess(homeList: HomeList) {
+
+
         val dataItems =
             mutableListOf<DiHolderItem<*, out RecyclerView.ViewHolder>>()
 
@@ -54,5 +57,31 @@ class HomeTabFragment : DiAbsListFragment() {
     override fun onRefresh() {
         super.onRefresh()
         mPresenter.requestCategoryList(categoryId, this)
+    }
+
+    private class DiffCallback(private val oldList: List<HomeList.BannerList>,
+                       private val newList: List<HomeList.BannerList>) : DiffUtil.Callback() {
+        override fun getOldListSize(): Int {
+            return oldList.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newList.size
+        }
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].id == newList[newItemPosition].id
+        }
+
+        override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+            return null
+        }
+
+
+
     }
 }

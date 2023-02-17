@@ -12,9 +12,14 @@ dependencies {
     implementation localGroovy()
 }
 
+task NewTask(type:) {
+
+}
+
 
 afterEvaluate {
     publishing {
+        //  <U extends T> U create(String var1, Class<U> var2, Action<? super U> var3) throws InvalidUserDataException;
         publications {
             maven(MavenPublication) {
                 artifactId = 'PublishPlugin'
