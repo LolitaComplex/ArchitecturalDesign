@@ -3,7 +3,15 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="DiPlayGround.app" target="16" />
+      <module name="DiPlayGround.buildSrc" target="16" />
+      <module name="DiPlayGround.buildSrc.main" target="16" />
+      <module name="DiPlayGround.buildSrc.test" target="16" />
+      <module name="DiPlayGround.GradleLib" target="16" />
       <module name="DiPlayGround.KotlinCoroutines" target="16" />
+      <module name="DiPlayGround.PluginPublish" target="1.8" />
+      <module name="DiPlayGround.PluginPublish.main" target="1.8" />
+      <module name="DiPlayGround.PluginPublish.test" target="1.8" />
+      <module name="DiPlayGround.PluginTest" target="16" />
     </bytecodeTargetLevel>
   </component>
 </project>

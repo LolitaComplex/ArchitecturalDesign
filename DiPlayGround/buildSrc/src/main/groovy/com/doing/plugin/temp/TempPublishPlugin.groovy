@@ -10,6 +10,6 @@ class TempPublishPlugin implements Plugin<Project> {
     @Override
     void apply(Project target) {
         println("${TAG} apply project: ${target}")
-        target.gradle.addProjectEvaluationListener(new PluginHandler(target: target))
+//        target.gradle.addProjectEvaluationListener(new PluginHandler(target: target))
     }
 }

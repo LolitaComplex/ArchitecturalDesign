@@ -12,10 +12,6 @@ dependencies {
     implementation localGroovy()
 }
 
-task NewTask(type:) {
-
-}
-
 
 afterEvaluate {
     publishing {

@@ -3,7 +3,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
+//    id 'android-aspectjx'
 }
+
 
 android {
     compileSdk 32
@@ -77,6 +79,8 @@ dependencies {
 //        exclude group: 'com.android.support'
     }
     kapt 'com.alibaba:arouter-compiler:1.5.2'
+
+//    api 'org.aspectj:aspectjrt:1.8.9'//需要使用aspectJ能力的模块
 
     implementation project(':DiLibrary')
     implementation project(':DiUi')
