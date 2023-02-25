@@ -14,5 +14,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.MainActivity_btn_coroutines).setOnClickListener {
             startActivity(Intent(this, KtCoroutinesActivity::class.java))
         }
+
+        findViewById<Button>(R.id.MainActivity_btn_blockcanary).setOnClickListener {
+            startActivity(Intent(this, BlockCanaryActivity::class.java))
+        }
     }
 }

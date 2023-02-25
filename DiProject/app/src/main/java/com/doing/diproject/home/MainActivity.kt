@@ -5,13 +5,15 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.fragment.app.DialogFragment
-import com.doing.diproject.R
 import com.doing.dicommon.component.ActivityProvider
 import com.doing.dicommon.component.DiBaseActivity
 import com.doing.diproject.BuildConfig
+import com.doing.diproject.R
 import com.doing.diproject.home.logic.MainLogic
 import com.doing.diui.common.DiStatusBar
 import com.doing.hilibrary.log.DiLog
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 
 class MainActivity : DiBaseActivity(), ActivityProvider {
 
@@ -22,9 +24,26 @@ class MainActivity : DiBaseActivity(), ActivityProvider {
         }
     }
 
+    inline fun <reified T> generic(t: T) {
+        val arrayOf = arrayOf(t)
+        val java = T::class.java
+        val list = ArrayList<T>()
+        val type: Type = object : TypeToken<T>() {}.type
+        if (t is ArrayList<*>) {
+
+        }
+    }
+
+    fun <T> toJson(json: String): T {
+        val type: Type = object : TypeToken<T>() {}.type
+        return gson.fromJson<T>(json, type)
+    }
+
     private lateinit var mMainLogic: MainLogic
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val type: Type = object : TypeToken<List<Map<String, String>>>() {}.type
+
         DiLog.d(TAG, "onCreate: 0ms start: $start")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

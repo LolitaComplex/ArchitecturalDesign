@@ -1,0 +1,81 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class BlockCanary {
+install(Context, BlockCanaryContext);
+BlockCanary get();
+start();
+stop();
+}
+
+class BlockCanaryInternals {
+StackSampler stackSampler;
+CpuSampler cpuSampler;
+LooperMonitor monitor;
+List<BlockInterceptor> mInterceptorChain;
+}
+
+
+abstract class AbstractSampler {
+Runnable run; // 抽象了300为间隔的轮训逻辑
+abstract doSample();
+}
+
+class StackSampler {
+doSample(); // 抓取调用栈逻辑
+}
+
+class CpuSampler {
+doSample(); // 抓取Cpu信息
+}
+
+interface Printer {
+println(String log);
+}
+
+class LooperMonitor {
+BlockListener mBlockListener;
+println(String log); // 第一次开启两个Sampler,第二如果间隔相比第一次大于3s, 调用
+private notifyBlockEvent(long) // 向写任务队列插入一个BlockListener调用任务
+}
+
+interface BlockListener {
+onBlockEvent();
+}
+
+class BlockCanaryInternals$BlockListener {
+onBlockEvent(); // 获取StackSampler和CpuSampler最新数据，并写入本地文件。并传递地给拦截器列表
+}
+
+class DisplayService {
+onBlockEvent(); // 显示Notification
+}
+
+
+class HandlerThreadFactory {
+// HandlerThreadWrapper就是一个HandlerThread的组合类
+HandlerThreadWrapper sLoopThread // 读CPU和调用栈的任务队列
+HandlerThreadWrapper sWriteLogThread // 输出日志的任务队列
+static getTimerThreadHandler()
+static getWriteLogThreadHandler()
+}
+
+
+
+BlockCanary *-- BlockCanaryInternals
+AbstractSampler <|-- CpuSampler
+AbstractSampler <|-- StackSampler
+Printer <|-- LooperMonitor
+BlockCanaryInternals *-- StackSampler
+BlockCanaryInternals *-- CpuSampler
+BlockCanaryInternals *-- LooperMonitor
+BlockListener <|-- BlockCanaryInternals$BlockListener
+BlockCanaryInternals --> BlockCanaryInternals$BlockListener
+BlockListener <|-- DisplayService
+LooperMonitor *-- BlockCanaryInternals$BlockListener
+HandlerThreadFactory <-- AbstractSampler
+HandlerThreadFactory <-- LooperMonitor
+
+
+@enduml
+
