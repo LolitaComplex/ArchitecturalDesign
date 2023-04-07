@@ -1,6 +1,10 @@
 package com.doing.diui
 
+import android.content.ContentProvider
+import android.content.ContentValues
 import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -17,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), (Boolean) -> Unit {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.MainActivity_btn_bottom).setOnClickListener {

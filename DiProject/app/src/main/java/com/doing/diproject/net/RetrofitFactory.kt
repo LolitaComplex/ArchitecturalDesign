@@ -1,11 +1,11 @@
 package com.doing.diproject.net
 
+import com.doing.dicommon.component.DiBaseApplication
+import com.doing.diproject.common.AppApplication
 import com.doing.hilibrary.restful.*
-import okhttp3.FormBody
+import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,6 +22,9 @@ class RetrofitFactory(baseUrl: String) : DiCall.Factory {
     init {
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
+            .client(OkHttpClient.Builder()
+                .cache(Cache(AppApplication.application.cacheDir, 1024 * 1024 * 10))
+                .build())
             .build()
 
         mApiService = retrofit.create(ApiService::class.java)

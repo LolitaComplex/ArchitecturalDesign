@@ -1,5 +1,7 @@
 package com.doing.diproject.common
 
+import android.app.Application
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
@@ -21,6 +23,15 @@ class AppApplication : DiBaseApplication(), ViewModelStoreOwner {
 
     fun test() {
         ViewModelProvider(this).get(TestViewModel::class.java)
+    }
+
+    companion object {
+        lateinit var application: Application
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        application = this
     }
 
     override fun onCreate() {

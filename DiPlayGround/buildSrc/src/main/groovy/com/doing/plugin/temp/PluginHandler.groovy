@@ -47,16 +47,17 @@ class PluginHandler implements ProjectEvaluationListener {
             println("${TempPublishPlugin.TAG} this: ${this.getClass()}")
             println("${TempPublishPlugin.TAG} owner: ${owner.getClass()}")
             println("${TempPublishPlugin.TAG} delegate: ${delegate.getClass()}")
+
             // 2. maven(MavenPublication)这个代码怎么想到是下边这个，根据 task name (type: Class)
             publications.create("maven", MavenPublication.class) { MavenPublication publication ->
                 // from(target.getComponents())
                 publication.artifactId = 'TestPublish'
                 publication.groupId = 'com.doing.plugin.test'
                 publication.version = '0.0.1'
-                publication.artifact("") { MavenArtifact artifact ->
+                publication.artifact(jarPath) { MavenArtifact artifact ->
                     artifact.setClassifier("interface")
                 }
-                // 3. project.extensions.getByType(LibraryExtension.class) 怎么就知道Android下有个Extension了
+                // 3. project.extensions.getByType(d.class) 怎么就知道Android下有个Extension了
                 publication.artifact("aarPath")
                 // 4. publication 相关API哪里去查
                 // CompileOnly runtimeOnly

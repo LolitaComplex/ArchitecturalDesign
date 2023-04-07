@@ -52,7 +52,6 @@ class MainActivity : DiBaseActivity(), ActivityProvider {
         mainLogic.initLogic(savedInstanceState)
         mMainLogic = mainLogic
 
-
         DiStatusBar.setStatusBar(this, true, Color.WHITE, false)
         val time = System.currentTimeMillis() - start
         DiLog.d(TAG, "onCreate end: ${time}ms")
